@@ -1,4 +1,6 @@
 import 'package:chat_app/common/theme/theme_extension.dart';
+import 'package:chat_app/common/widgets/custom_text_form_field.dart';
+import 'package:chat_app/features/auth/presentation/screen/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -13,30 +15,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final ValueNotifier<bool> _isObscure = ValueNotifier(false);
 
-  Widget inputFormField({
-    required TextEditingController controller,
-    required String label,
-    required String hintText,
-    bool isObscure = false,
-    VoidCallback? callBack,
-    Icon? prefixIcon,
-    IconButton? suffixIcon,
-  }) {
-    return TextFormField(
-      onTap: callBack,
-      controller: controller,
-      obscureText: isObscure,
-
-      decoration: InputDecoration(
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-        hintText: hintText,
-        label: Text(label),
-      ),
-    );
-  }
-
   Widget personAvatar() {
     return CircleAvatar(
       radius: MediaQuery.sizeOf(context).width * 0.1,
@@ -48,34 +26,42 @@ class _LoginScreenState extends State<LoginScreen> {
     _isObscure.value = !_isObscure.value;
   }
 
+  void _navigateToRegisterPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RegisterScreen()),
+    );
+  }
+
+  void _handleLogin() {}
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           spacing: 20,
           children: [
             Text(
               'Login User',
-              style: context.headline2.copyWith(color: Colors.red),
+              style: context.largeTitle.copyWith(fontWeight: FontWeight.w500),
             ),
-            personAvatar(),
-            inputFormField(
+            // personAvatar(),
+            CustomTextFormField(
               prefixIcon: Icon(Icons.person_outline),
               controller: _usernameController,
               label: 'Username',
-              hintText: 'Enter username here',
             ),
             ValueListenableBuilder(
               valueListenable: _isObscure,
               builder: (context, value, _) {
-                return inputFormField(
+                return CustomTextFormField(
                   isObscure: value,
                   controller: _passwordController,
                   label: 'Password',
-                  hintText: 'Enter password here',
                   prefixIcon: Icon(Icons.lock_outline),
                   suffixIcon: IconButton(
                     onPressed: toggleVisibility,
@@ -86,6 +72,32 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 );
               },
+            ),
+            SizedBox(
+              width: MediaQuery.sizeOf(context).width,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  padding: EdgeInsets.symmetric(vertical: 5),
+                ),
+                onPressed: _handleLogin,
+                child: Text('Login'),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              spacing: 5,
+              children: [
+                Text('Don\'t have an account?'),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    visualDensity: VisualDensity.compact,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    padding: EdgeInsets.all(0),
+                  ),
+                  onPressed: _navigateToRegisterPage,
+                  child: Text('Register'),
+                ),
+              ],
             ),
           ],
         ),

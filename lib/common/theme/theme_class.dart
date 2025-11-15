@@ -1,62 +1,64 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-/// Premium Chat Application Theme
-/// Inspired by: Telegram, Discord, Slack, and modern design systems
+/// Apple-Inspired Minimalist Theme
+/// Pure black and white design with subtle grays
 class ChatAppTheme {
   // ============================================================================
-  // COLOR PALETTE - Light Mode
-  // Inspired by: Soft, warm tones with high contrast for readability
+  // COLOR PALETTE - Light Mode (Apple iOS/macOS inspired)
   // ============================================================================
-  static const _lightPrimary = Color(
-    0xFF6366F1,
-  ); // Indigo - vibrant but sophisticated
-  static const _lightSecondary = Color(0xFF8B5CF6); // Purple accent
+  static const _lightPrimary = Color(0xFF000000); // Pure black
+  static const _lightSecondary = Color(0xFF1C1C1E); // Dark gray
 
-  static const _lightBackground = Color(0xFFF8FAFC); // Soft blue-gray
-  static const _lightSurface = Color(0xFFFFFFFF);
-  static const _lightSurfaceVariant = Color(0xFFF1F5F9);
+  static const _lightBackground = Color(0xFFFFFFFF); // Pure white
+  static const _lightSurface = Color(0xFFFAFAFA); // Off-white
+  static const _lightSurfaceVariant = Color(0xFFF2F2F7); // Light gray
 
-  static const _lightError = Color(0xFFEF4444);
-  static const _lightSuccess = Color(0xFF10B981);
-  static const _lightWarning = Color(0xFFF59E0B);
-  static const _lightInfo = Color(0xFF3B82F6);
+  static const _lightError = Color(0xFF000000);
+  static const _lightSuccess = Color(0xFF1C1C1E);
+  static const _lightWarning = Color(0xFF3A3A3C);
+  static const _lightInfo = Color(0xFF000000);
 
   // Text colors
-  static const _lightTextPrimary = Color(0xFF0F172A);
-  static const _lightTextSecondary = Color(0xFF475569);
-  static const _lightTextTertiary = Color(0xFF94A3B8);
+  static const _lightTextPrimary = Color(0xFF000000);
+  static const _lightTextSecondary = Color(0xFF3A3A3C);
+  static const _lightTextTertiary = Color(0xFF8E8E93);
+
+  // Borders and dividers
+  static const _lightBorder = Color(0xFFE5E5EA);
+  static const _lightDivider = Color(0xFFD1D1D6);
 
   // Chat-specific colors
-  static const _lightSentBubble = Color(0xFF6366F1);
-  static const _lightReceivedBubble = Color(0xFFFFFFFF);
-  static const _lightReceivedBubbleBorder = Color(0xFFE2E8F0);
+  static const _lightSentBubble = Color(0xFF000000);
+  static const _lightReceivedBubble = Color(0xFFF2F2F7);
 
   // ============================================================================
-  // COLOR PALETTE - Dark Mode
-  // Inspired by: Deep, rich colors with OLED-friendly blacks
+  // COLOR PALETTE - Dark Mode (Apple iOS/macOS inspired)
   // ============================================================================
-  static const _darkPrimary = Color(0xFF818CF8); // Lighter indigo for dark mode
-  static const _darkSecondary = Color(0xFFA78BFA); // Light purple
+  static const _darkPrimary = Color(0xFFFFFFFF); // Pure white
+  static const _darkSecondary = Color(0xFFE5E5EA); // Light gray
 
-  static const _darkBackground = Color(0xFF0F172A); // Deep navy
-  static const _darkSurface = Color(0xFF1E293B);
-  static const _darkSurfaceVariant = Color(0xFF334155);
+  static const _darkBackground = Color(0xFF000000); // Pure black
+  static const _darkSurface = Color(0xFF1C1C1E); // Dark gray
+  static const _darkSurfaceVariant = Color(0xFF2C2C2E); // Darker gray
 
-  static const _darkError = Color(0xFFF87171);
-  static const _darkSuccess = Color(0xFF34D399);
-  static const _darkWarning = Color(0xFFFBBF24);
-  static const _darkInfo = Color(0xFF60A5FA);
+  static const _darkError = Color(0xFFFFFFFF);
+  static const _darkSuccess = Color(0xFFE5E5EA);
+  static const _darkWarning = Color(0xFFC7C7CC);
+  static const _darkInfo = Color(0xFFFFFFFF);
 
   // Text colors
-  static const _darkTextPrimary = Color(0xFFF1F5F9);
-  static const _darkTextSecondary = Color(0xFFCBD5E1);
-  static const _darkTextTertiary = Color(0xFF64748B);
+  static const _darkTextPrimary = Color(0xFFFFFFFF);
+  static const _darkTextSecondary = Color(0xFFAEAEB2);
+  static const _darkTextTertiary = Color(0xFF636366);
+
+  // Borders and dividers
+  static const _darkBorder = Color(0xFF38383A);
+  static const _darkDivider = Color(0xFF48484A);
 
   // Chat-specific colors
-  static const _darkSentBubble = Color(0xFF6366F1);
-  static const _darkReceivedBubble = Color(0xFF1E293B);
-  static const _darkReceivedBubbleBorder = Color(0xFF334155);
+  static const _darkSentBubble = Color(0xFFFFFFFF);
+  static const _darkReceivedBubble = Color(0xFF1C1C1E);
 
   // ============================================================================
   // LIGHT THEME
@@ -64,15 +66,15 @@ class ChatAppTheme {
   static ThemeData lightTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
-    fontFamily: 'SFPro',
+    fontFamily: 'SFProDisplay',
 
     // Color Scheme
     colorScheme: const ColorScheme.light(
       primary: _lightPrimary,
-      primaryContainer: Color(0xFFEEF2FF),
+      primaryContainer: _lightSurfaceVariant,
       secondary: _lightSecondary,
-      secondaryContainer: Color(0xFFF5F3FF),
-      tertiary: Color(0xFFEC4899),
+      secondaryContainer: _lightSurfaceVariant,
+      tertiary: _lightTextSecondary,
       surface: _lightSurface,
       surfaceContainerHighest: _lightSurfaceVariant,
       error: _lightError,
@@ -80,7 +82,7 @@ class ChatAppTheme {
       onSecondary: Colors.white,
       onSurface: _lightTextPrimary,
       onSurfaceVariant: _lightTextSecondary,
-      outline: Color(0xFFCBD5E1),
+      outline: _lightBorder,
     ),
 
     // Scaffold
@@ -90,15 +92,16 @@ class ChatAppTheme {
     appBarTheme: const AppBarTheme(
       elevation: 0,
       centerTitle: false,
-      backgroundColor: _lightSurface,
+      backgroundColor: _lightBackground,
       foregroundColor: _lightTextPrimary,
       surfaceTintColor: Colors.transparent,
       systemOverlayStyle: SystemUiOverlayStyle.dark,
       titleTextStyle: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
+        fontSize: 34,
+        fontWeight: FontWeight.w700,
         color: _lightTextPrimary,
-        letterSpacing: -0.5,
+        letterSpacing: -0.8,
+        fontFamily: 'SFProDisplay',
       ),
     ),
 
@@ -107,29 +110,33 @@ class ChatAppTheme {
       elevation: 0,
       color: _lightSurface,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: const BorderSide(color: Color(0xFFE2E8F0), width: 1),
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(color: _lightBorder, width: 0.5),
       ),
     ),
 
     // Input Decoration Theme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: _lightSurface,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      fillColor: _lightSurfaceVariant,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide.none,
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Color(0xFFE2E8F0)),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: _lightPrimary, width: 2),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: _lightPrimary, width: 1),
       ),
-      hintStyle: const TextStyle(color: _lightTextTertiary, fontSize: 15),
+      hintStyle: const TextStyle(
+        color: _lightTextTertiary,
+        fontSize: 17,
+        fontWeight: FontWeight.w400,
+      ),
     ),
 
     // Elevated Button Theme
@@ -141,9 +148,10 @@ class ChatAppTheme {
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         textStyle: const TextStyle(
-          fontSize: 16,
+          fontSize: 17,
           fontWeight: FontWeight.w600,
-          letterSpacing: 0,
+          letterSpacing: -0.4,
+          fontFamily: 'SFProDisplay',
         ),
       ),
     ),
@@ -154,31 +162,40 @@ class ChatAppTheme {
         foregroundColor: _lightPrimary,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        textStyle: const TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.w400,
+          fontFamily: 'SFProDisplay',
+        ),
       ),
     ),
 
     // Icon Theme
-    iconTheme: const IconThemeData(color: _lightTextSecondary, size: 24),
+    iconTheme: const IconThemeData(color: _lightTextPrimary, size: 22),
 
     // Divider Theme
     dividerTheme: const DividerThemeData(
-      color: Color(0xFFE2E8F0),
-      thickness: 1,
-      space: 1,
+      color: _lightDivider,
+      thickness: 0.5,
+      space: 0.5,
     ),
 
     // Bottom Navigation Bar Theme
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: _lightSurface,
+      backgroundColor: _lightBackground,
       selectedItemColor: _lightPrimary,
       unselectedItemColor: _lightTextTertiary,
       type: BottomNavigationBarType.fixed,
-      elevation: 8,
-      selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
-      unselectedLabelStyle: TextStyle(
+      elevation: 0,
+      selectedLabelStyle: TextStyle(
         fontWeight: FontWeight.w500,
-        fontSize: 12,
+        fontSize: 11,
+        fontFamily: 'SFProDisplay',
+      ),
+      unselectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 11,
+        fontFamily: 'SFProDisplay',
       ),
     ),
 
@@ -186,15 +203,19 @@ class ChatAppTheme {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: _lightPrimary,
       foregroundColor: Colors.white,
-      elevation: 4,
-      highlightElevation: 8,
+      elevation: 0,
+      highlightElevation: 0,
+      shape: CircleBorder(),
     ),
 
     // Chip Theme
     chipTheme: ChipThemeData(
       backgroundColor: _lightSurfaceVariant,
       selectedColor: _lightPrimary,
-      labelStyle: const TextStyle(color: _lightTextPrimary),
+      labelStyle: const TextStyle(
+        color: _lightTextPrimary,
+        fontFamily: 'SFProDisplay',
+      ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
   );
@@ -205,14 +226,15 @@ class ChatAppTheme {
   static ThemeData darkTheme = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
+    fontFamily: 'SFProDisplay',
 
     // Color Scheme
     colorScheme: const ColorScheme.dark(
       primary: _darkPrimary,
-      primaryContainer: Color(0xFF312E81),
+      primaryContainer: _darkSurfaceVariant,
       secondary: _darkSecondary,
-      secondaryContainer: Color(0xFF4C1D95),
-      tertiary: Color(0xFFF472B6),
+      secondaryContainer: _darkSurfaceVariant,
+      tertiary: _darkTextSecondary,
       surface: _darkSurface,
       surfaceContainerHighest: _darkSurfaceVariant,
       error: _darkError,
@@ -220,7 +242,7 @@ class ChatAppTheme {
       onSecondary: _darkBackground,
       onSurface: _darkTextPrimary,
       onSurfaceVariant: _darkTextSecondary,
-      outline: Color(0xFF475569),
+      outline: _darkBorder,
     ),
 
     // Scaffold
@@ -230,15 +252,16 @@ class ChatAppTheme {
     appBarTheme: const AppBarTheme(
       elevation: 0,
       centerTitle: false,
-      backgroundColor: _darkSurface,
+      backgroundColor: _darkBackground,
       foregroundColor: _darkTextPrimary,
       surfaceTintColor: Colors.transparent,
       systemOverlayStyle: SystemUiOverlayStyle.light,
       titleTextStyle: TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
+        fontSize: 34,
+        fontWeight: FontWeight.w700,
         color: _darkTextPrimary,
-        letterSpacing: -0.5,
+        letterSpacing: -0.8,
+        fontFamily: 'SFProDisplay',
       ),
     ),
 
@@ -247,29 +270,33 @@ class ChatAppTheme {
       elevation: 0,
       color: _darkSurface,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: const BorderSide(color: Color(0xFF334155), width: 1),
+        borderRadius: BorderRadius.circular(12),
+        side: const BorderSide(color: _darkBorder, width: 0.5),
       ),
     ),
 
     // Input Decoration Theme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: _darkSurface,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+      fillColor: _darkSurfaceVariant,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Color(0xFF334155)),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide.none,
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: Color(0xFF334155)),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: _darkPrimary, width: 2),
+        borderRadius: BorderRadius.circular(10),
+        borderSide: const BorderSide(color: _darkPrimary, width: 1),
       ),
-      hintStyle: const TextStyle(color: _darkTextTertiary, fontSize: 15),
+      hintStyle: const TextStyle(
+        color: _darkTextTertiary,
+        fontSize: 17,
+        fontWeight: FontWeight.w400,
+      ),
     ),
 
     // Elevated Button Theme
@@ -281,9 +308,10 @@ class ChatAppTheme {
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         textStyle: const TextStyle(
-          fontSize: 16,
+          fontSize: 17,
           fontWeight: FontWeight.w600,
-          letterSpacing: 0,
+          letterSpacing: -0.4,
+          fontFamily: 'SFProDisplay',
         ),
       ),
     ),
@@ -294,31 +322,40 @@ class ChatAppTheme {
         foregroundColor: _darkPrimary,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-        textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+        textStyle: const TextStyle(
+          fontSize: 17,
+          fontWeight: FontWeight.w400,
+          fontFamily: 'SFProDisplay',
+        ),
       ),
     ),
 
     // Icon Theme
-    iconTheme: const IconThemeData(color: _darkTextSecondary, size: 24),
+    iconTheme: const IconThemeData(color: _darkTextPrimary, size: 22),
 
     // Divider Theme
     dividerTheme: const DividerThemeData(
-      color: Color(0xFF334155),
-      thickness: 1,
-      space: 1,
+      color: _darkDivider,
+      thickness: 0.5,
+      space: 0.5,
     ),
 
     // Bottom Navigation Bar Theme
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: _darkSurface,
+      backgroundColor: _darkBackground,
       selectedItemColor: _darkPrimary,
       unselectedItemColor: _darkTextTertiary,
       type: BottomNavigationBarType.fixed,
-      elevation: 8,
-      selectedLabelStyle: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
-      unselectedLabelStyle: TextStyle(
+      elevation: 0,
+      selectedLabelStyle: TextStyle(
         fontWeight: FontWeight.w500,
-        fontSize: 12,
+        fontSize: 11,
+        fontFamily: 'SFProDisplay',
+      ),
+      unselectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.w400,
+        fontSize: 11,
+        fontFamily: 'SFProDisplay',
       ),
     ),
 
@@ -326,21 +363,25 @@ class ChatAppTheme {
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: _darkPrimary,
       foregroundColor: _darkBackground,
-      elevation: 4,
-      highlightElevation: 8,
+      elevation: 0,
+      highlightElevation: 0,
+      shape: CircleBorder(),
     ),
 
     // Chip Theme
     chipTheme: ChipThemeData(
       backgroundColor: _darkSurfaceVariant,
       selectedColor: _darkPrimary,
-      labelStyle: const TextStyle(color: _darkTextPrimary),
+      labelStyle: const TextStyle(
+        color: _darkTextPrimary,
+        fontFamily: 'SFProDisplay',
+      ),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
     ),
   );
 
   // ============================================================================
-  // CUSTOM CHAT COLORS - Legacy methods (prefer extension methods below)
+  // CUSTOM CHAT COLORS
   // ============================================================================
 
   static Color sentBubbleColor(bool isDark) =>
@@ -350,7 +391,7 @@ class ChatAppTheme {
       isDark ? _darkReceivedBubble : _lightReceivedBubble;
 
   static Color receivedBubbleBorder(bool isDark) =>
-      isDark ? _darkReceivedBubbleBorder : _lightReceivedBubbleBorder;
+      isDark ? _darkBorder : _lightBorder;
 
   static Color successColor(bool isDark) =>
       isDark ? _darkSuccess : _lightSuccess;
@@ -370,85 +411,107 @@ class ChatAppTheme {
       isDark ? _darkTextTertiary : _lightTextTertiary;
 
   // ============================================================================
-  // CUSTOM TEXT STYLES
+  // CUSTOM TEXT STYLES (Apple Typography)
   // ============================================================================
 
-  static TextStyle headline1(bool isDark) => TextStyle(
-    fontSize: 32,
-    fontWeight: FontWeight.w700,
-    color: isDark ? _darkTextPrimary : _lightTextPrimary,
-    letterSpacing: -1,
-  );
+  static TextStyle largeTitle(bool isDark) => TextStyle(
+        fontSize: 34,
+        fontWeight: FontWeight.w700,
+        color: isDark ? _darkTextPrimary : _lightTextPrimary,
+        letterSpacing: -0.8,
+      );
 
-  static TextStyle headline2(bool isDark) => TextStyle(
-    fontSize: 24,
-    fontWeight: FontWeight.w600,
-    color: isDark ? _darkTextPrimary : _lightTextPrimary,
-    letterSpacing: -0.5,
-  );
+  static TextStyle title1(bool isDark) => TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.w700,
+        color: isDark ? _darkTextPrimary : _lightTextPrimary,
+        letterSpacing: -0.6,
+      );
 
-  static TextStyle headline3(bool isDark) => TextStyle(
-    fontSize: 20,
-    fontWeight: FontWeight.w600,
-    color: isDark ? _darkTextPrimary : _lightTextPrimary,
-    letterSpacing: -0.3,
-  );
+  static TextStyle title2(bool isDark) => TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.w700,
+        color: isDark ? _darkTextPrimary : _lightTextPrimary,
+        letterSpacing: -0.4,
+      );
 
-  static TextStyle bodyLarge(bool isDark) => TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w400,
-    color: isDark ? _darkTextPrimary : _lightTextPrimary,
-    height: 1.5,
-  );
+  static TextStyle title3(bool isDark) => TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: isDark ? _darkTextPrimary : _lightTextPrimary,
+        letterSpacing: -0.3,
+      );
 
-  static TextStyle bodyMedium(bool isDark) => TextStyle(
-    fontSize: 15,
-    fontWeight: FontWeight.w400,
-    color: isDark ? _darkTextSecondary : _lightTextSecondary,
-    height: 1.5,
-  );
+  static TextStyle headline(bool isDark) => TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.w600,
+        color: isDark ? _darkTextPrimary : _lightTextPrimary,
+        letterSpacing: -0.4,
+      );
 
-  static TextStyle bodySmall(bool isDark) => TextStyle(
-    fontSize: 14,
-    fontWeight: FontWeight.w400,
-    color: isDark ? _darkTextTertiary : _lightTextTertiary,
-    height: 1.4,
-  );
+  static TextStyle body(bool isDark) => TextStyle(
+        fontSize: 17,
+        fontWeight: FontWeight.w400,
+        color: isDark ? _darkTextPrimary : _lightTextPrimary,
+        letterSpacing: -0.4,
+        height: 1.3,
+      );
 
-  static TextStyle caption(bool isDark) => TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w500,
-    color: isDark ? _darkTextTertiary : _lightTextTertiary,
-    letterSpacing: 0.2,
-  );
+  static TextStyle callout(bool isDark) => TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+        color: isDark ? _darkTextSecondary : _lightTextSecondary,
+        letterSpacing: -0.3,
+      );
 
-  static TextStyle button(bool isDark) => TextStyle(
-    fontSize: 16,
-    fontWeight: FontWeight.w600,
-    color: isDark ? _darkTextPrimary : _lightTextPrimary,
-    letterSpacing: 0,
-  );
+  static TextStyle subheadline(bool isDark) => TextStyle(
+        fontSize: 15,
+        fontWeight: FontWeight.w400,
+        color: isDark ? _darkTextSecondary : _lightTextSecondary,
+        letterSpacing: -0.2,
+      );
+
+  static TextStyle footnote(bool isDark) => TextStyle(
+        fontSize: 13,
+        fontWeight: FontWeight.w400,
+        color: isDark ? _darkTextTertiary : _lightTextTertiary,
+        letterSpacing: -0.1,
+      );
+
+  static TextStyle caption1(bool isDark) => TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        color: isDark ? _darkTextTertiary : _lightTextTertiary,
+        letterSpacing: 0,
+      );
+
+  static TextStyle caption2(bool isDark) => TextStyle(
+        fontSize: 11,
+        fontWeight: FontWeight.w400,
+        color: isDark ? _darkTextTertiary : _lightTextTertiary,
+        letterSpacing: 0.1,
+      );
 
   // ============================================================================
-  // SPACING CONSTANTS
+  // SPACING CONSTANTS (Apple HIG)
   // ============================================================================
 
-  static const double spacing2xs = 4.0;
-  static const double spacingXs = 8.0;
-  static const double spacingSm = 12.0;
+  static const double spacing2xs = 2.0;
+  static const double spacingXs = 4.0;
+  static const double spacingSm = 8.0;
   static const double spacingMd = 16.0;
-  static const double spacingLg = 24.0;
+  static const double spacingLg = 20.0;
   static const double spacingXl = 32.0;
-  static const double spacing2xl = 48.0;
+  static const double spacing2xl = 44.0;
 
   // ============================================================================
-  // BORDER RADIUS CONSTANTS
+  // BORDER RADIUS CONSTANTS (Apple Style)
   // ============================================================================
 
   static const double radiusSm = 8.0;
-  static const double radiusMd = 12.0;
-  static const double radiusLg = 16.0;
-  static const double radiusXl = 24.0;
+  static const double radiusMd = 10.0;
+  static const double radiusLg = 12.0;
+  static const double radiusXl = 20.0;
   static const double radiusFull = 999.0;
 
   // ============================================================================
@@ -456,37 +519,47 @@ class ChatAppTheme {
   // ============================================================================
 
   static BoxDecoration sentMessageDecoration(bool isDark) => BoxDecoration(
-    color: sentBubbleColor(isDark),
-    borderRadius: const BorderRadius.only(
-      topLeft: Radius.circular(18),
-      topRight: Radius.circular(18),
-      bottomLeft: Radius.circular(18),
-      bottomRight: Radius.circular(4),
-    ),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withValues(alpha: isDark ? 0.2 : 0.08),
-        blurRadius: 8,
-        offset: const Offset(0, 2),
-      ),
-    ],
-  );
+        color: sentBubbleColor(isDark),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(18),
+          topRight: Radius.circular(18),
+          bottomLeft: Radius.circular(18),
+          bottomRight: Radius.circular(4),
+        ),
+        boxShadow: isDark
+            ? []
+            : [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 4,
+                  offset: const Offset(0, 1),
+                ),
+              ],
+      );
 
   static BoxDecoration receivedMessageDecoration(bool isDark) => BoxDecoration(
-    color: receivedBubbleColor(isDark),
-    border: Border.all(color: receivedBubbleBorder(isDark), width: 1),
-    borderRadius: const BorderRadius.only(
-      topLeft: Radius.circular(18),
-      topRight: Radius.circular(18),
-      bottomLeft: Radius.circular(4),
-      bottomRight: Radius.circular(18),
-    ),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withValues(alpha: isDark ? 0.1 : 0.04),
-        blurRadius: 8,
-        offset: const Offset(0, 2),
-      ),
-    ],
-  );
+        color: receivedBubbleColor(isDark),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(18),
+          topRight: Radius.circular(18),
+          bottomLeft: Radius.circular(4),
+          bottomRight: Radius.circular(18),
+        ),
+        boxShadow: isDark
+            ? []
+            : [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.03),
+                  blurRadius: 4,
+                  offset: const Offset(0, 1),
+                ),
+              ],
+      );
+
+  // Message text color (for contrast)
+  static Color sentMessageTextColor(bool isDark) =>
+      isDark ? _darkBackground : Colors.white;
+
+  static Color receivedMessageTextColor(bool isDark) =>
+      isDark ? _darkTextPrimary : _lightTextPrimary;
 }
