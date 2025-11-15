@@ -1,3 +1,4 @@
+import 'package:chat_app/common/theme/theme_extension.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -29,7 +30,7 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: InputDecoration(
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
-        border: OutlineInputBorder(),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
         hintText: hintText,
         label: Text(label),
       ),
@@ -43,32 +44,51 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  void toggleVisibility() {
+    _isObscure.value = !_isObscure.value;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        spacing: 20,
-        children: [
-          Text('Login User'),
-          personAvatar(),
-          inputFormField(
-            controller: _usernameController,
-            label: 'Username',
-            hintText: 'Enter username here',
-          ),
-          ValueListenableBuilder(
-            valueListenable: _isObscure,
-            builder: (context, value, _) {
-              return inputFormField(
-                isObscure: value,
-                controller: _passwordController,
-                label: 'Password',
-                hintText: 'Enter password here',
-              );
-            },
-          ),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 20,
+          children: [
+            Text(
+              'Login User',
+              style: context.headline2.copyWith(color: Colors.red),
+            ),
+            personAvatar(),
+            inputFormField(
+              prefixIcon: Icon(Icons.person_outline),
+              controller: _usernameController,
+              label: 'Username',
+              hintText: 'Enter username here',
+            ),
+            ValueListenableBuilder(
+              valueListenable: _isObscure,
+              builder: (context, value, _) {
+                return inputFormField(
+                  isObscure: value,
+                  controller: _passwordController,
+                  label: 'Password',
+                  hintText: 'Enter password here',
+                  prefixIcon: Icon(Icons.lock_outline),
+                  suffixIcon: IconButton(
+                    onPressed: toggleVisibility,
+
+                    icon: value
+                        ? Icon(Icons.visibility_off_outlined)
+                        : Icon(Icons.visibility_outlined),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
