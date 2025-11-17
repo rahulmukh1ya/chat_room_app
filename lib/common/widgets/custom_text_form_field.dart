@@ -8,6 +8,8 @@ class CustomTextFormField extends StatelessWidget {
   final VoidCallback? callBack;
   final Icon? prefixIcon;
   final IconButton? suffixIcon;
+  final FormFieldValidator<String>? validator;
+  final AutovalidateMode? autovalidateMode;
 
   const CustomTextFormField({
     super.key,
@@ -18,6 +20,8 @@ class CustomTextFormField extends StatelessWidget {
     this.callBack,
     this.prefixIcon,
     this.suffixIcon,
+    this.validator,
+    this.autovalidateMode,
   });
 
   @override
@@ -26,6 +30,8 @@ class CustomTextFormField extends StatelessWidget {
       onTap: callBack,
       controller: controller,
       obscureText: isObscure,
+      validator: validator,
+      autovalidateMode: autovalidateMode ?? AutovalidateMode.onUserInteraction,
 
       decoration: InputDecoration(
         prefixIcon: prefixIcon,

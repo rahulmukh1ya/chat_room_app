@@ -4,7 +4,6 @@ import 'package:chat_app/common/constants/api_constants.dart';
 import 'package:chat_app/common/exceptions/custom_exception.dart';
 import 'package:dio/dio.dart';
 
-
 class DioHttpClient {
   final Dio dio;
 
@@ -190,7 +189,9 @@ class DioHttpClient {
   Map<String, dynamic> _handleError(DioException e) {
     if (e.response != null) {
       final errorMessage =
-          e.response?.data?['message'] ?? 'An unknown error occurred';
+          e.response?.data?['error'] ?? 'An unknown error occurred';
+      // final errorMessage =
+      //     e.response?.data?['message'] ?? 'An unknown error occurred';
       log("Extracted Error Message: $errorMessage");
       throw CustomException(errorMessage);
     }

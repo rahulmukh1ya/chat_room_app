@@ -14,7 +14,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   AuthRemoteDatasourceImpl({required this.client});
   @override
   Future<AuthResponseModel> loginUser(String username, String password) async {
-    final response = client.post(
+    final response = await client.post(
       ApiConstants.login,
       body: {'username': username, 'password': password},
     );
@@ -22,7 +22,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
     log(response.toString());
 
     final authResponseModel = AuthResponseModel.fromJson(
-      response as Map<String, dynamic>,
+      response,
     );
 
     return authResponseModel;
@@ -30,7 +30,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
 
   @override
   Future<void> registerUser(String username, String password) async {
-    final response = client.post(
+    final response = await client.post(
       ApiConstants.register,
       body: {'username': username, 'password': password},
     );
