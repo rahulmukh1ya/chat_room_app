@@ -97,7 +97,7 @@ class ChatAppTheme {
       surfaceTintColor: Colors.transparent,
       systemOverlayStyle: SystemUiOverlayStyle.dark,
       titleTextStyle: TextStyle(
-        fontSize: 34,
+        fontSize: 20,
         fontWeight: FontWeight.w700,
         color: _lightTextPrimary,
         letterSpacing: -0.8,
@@ -124,7 +124,7 @@ class ChatAppTheme {
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide.none,
       ),
-      enabledBorder: OutlineInputBorder(
+      enabledBorder: OutlineInputBorder( 
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide.none,
       ),
@@ -257,7 +257,7 @@ class ChatAppTheme {
       surfaceTintColor: Colors.transparent,
       systemOverlayStyle: SystemUiOverlayStyle.light,
       titleTextStyle: TextStyle(
-        fontSize: 34,
+        fontSize: 20,
         fontWeight: FontWeight.w700,
         color: _darkTextPrimary,
         letterSpacing: -0.8,
