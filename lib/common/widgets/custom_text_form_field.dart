@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
-  final String label;
+  final Widget? label;
   final String? hintText;
   final bool isObscure;
   final VoidCallback? callBack;
@@ -12,7 +12,7 @@ class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField({
     super.key,
     required this.controller,
-    required this.label,
+    this.label,
     this.hintText,
     this.isObscure = false,
     this.callBack,
@@ -31,7 +31,7 @@ class CustomTextFormField extends StatelessWidget {
         prefixIcon: prefixIcon,
         suffixIcon: suffixIcon,
         hintText: hintText,
-        label: Text(label),
+        label: label,
       ),
     );
   }

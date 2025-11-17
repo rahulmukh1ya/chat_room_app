@@ -1,8 +1,13 @@
+import 'package:chat_app/common/di/injection.dart';
 import 'package:chat_app/common/theme/theme_class.dart';
+import 'package:chat_app/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:chat_app/features/auth/presentation/screen/login_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await setupInjection();
   runApp(const MyApp());
 }
 
@@ -11,13 +16,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ChatAppTheme.lightTheme,
-      darkTheme: ChatAppTheme.darkTheme,
-      themeMode: ThemeMode.light,
-      home: const LoginScreen(),
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => getIt<AuthBloc>())],
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
+        theme: ChatAppTheme.lightTheme,
+        darkTheme: ChatAppTheme.darkTheme,
+        themeMode: ThemeMode.light,
+        home: const LoginScreen(),
+      ),
     );
   }
 }

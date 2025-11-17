@@ -130,7 +130,7 @@ class ChatAppTheme {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: _lightPrimary, width: 1),
+        borderSide: BorderSide.none,
       ),
       hintStyle: const TextStyle(
         color: _lightTextTertiary,
@@ -290,7 +290,7 @@ class ChatAppTheme {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: const BorderSide(color: _darkPrimary, width: 1),
+        borderSide: BorderSide.none,
       ),
       hintStyle: const TextStyle(
         color: _darkTextTertiary,
@@ -415,82 +415,82 @@ class ChatAppTheme {
   // ============================================================================
 
   static TextStyle largeTitle(bool isDark) => TextStyle(
-        fontSize: 34,
-        fontWeight: FontWeight.w700,
-        color: isDark ? _darkTextPrimary : _lightTextPrimary,
-        letterSpacing: -0.8,
-      );
+    fontSize: 34,
+    fontWeight: FontWeight.w700,
+    color: isDark ? _darkTextPrimary : _lightTextPrimary,
+    letterSpacing: -0.8,
+  );
 
   static TextStyle title1(bool isDark) => TextStyle(
-        fontSize: 28,
-        fontWeight: FontWeight.w700,
-        color: isDark ? _darkTextPrimary : _lightTextPrimary,
-        letterSpacing: -0.6,
-      );
+    fontSize: 28,
+    fontWeight: FontWeight.w700,
+    color: isDark ? _darkTextPrimary : _lightTextPrimary,
+    letterSpacing: -0.6,
+  );
 
   static TextStyle title2(bool isDark) => TextStyle(
-        fontSize: 22,
-        fontWeight: FontWeight.w700,
-        color: isDark ? _darkTextPrimary : _lightTextPrimary,
-        letterSpacing: -0.4,
-      );
+    fontSize: 22,
+    fontWeight: FontWeight.w700,
+    color: isDark ? _darkTextPrimary : _lightTextPrimary,
+    letterSpacing: -0.4,
+  );
 
   static TextStyle title3(bool isDark) => TextStyle(
-        fontSize: 20,
-        fontWeight: FontWeight.w600,
-        color: isDark ? _darkTextPrimary : _lightTextPrimary,
-        letterSpacing: -0.3,
-      );
+    fontSize: 20,
+    fontWeight: FontWeight.w600,
+    color: isDark ? _darkTextPrimary : _lightTextPrimary,
+    letterSpacing: -0.3,
+  );
 
   static TextStyle headline(bool isDark) => TextStyle(
-        fontSize: 17,
-        fontWeight: FontWeight.w600,
-        color: isDark ? _darkTextPrimary : _lightTextPrimary,
-        letterSpacing: -0.4,
-      );
+    fontSize: 17,
+    fontWeight: FontWeight.w600,
+    color: isDark ? _darkTextPrimary : _lightTextPrimary,
+    letterSpacing: -0.4,
+  );
 
   static TextStyle body(bool isDark) => TextStyle(
-        fontSize: 17,
-        fontWeight: FontWeight.w400,
-        color: isDark ? _darkTextPrimary : _lightTextPrimary,
-        letterSpacing: -0.4,
-        height: 1.3,
-      );
+    fontSize: 17,
+    fontWeight: FontWeight.w400,
+    color: isDark ? _darkTextPrimary : _lightTextPrimary,
+    letterSpacing: -0.4,
+    height: 1.3,
+  );
 
   static TextStyle callout(bool isDark) => TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.w400,
-        color: isDark ? _darkTextSecondary : _lightTextSecondary,
-        letterSpacing: -0.3,
-      );
+    fontSize: 16,
+    fontWeight: FontWeight.w400,
+    color: isDark ? _darkTextSecondary : _lightTextSecondary,
+    letterSpacing: -0.3,
+  );
 
   static TextStyle subheadline(bool isDark) => TextStyle(
-        fontSize: 15,
-        fontWeight: FontWeight.w400,
-        color: isDark ? _darkTextSecondary : _lightTextSecondary,
-        letterSpacing: -0.2,
-      );
+    fontSize: 15,
+    fontWeight: FontWeight.w400,
+    color: isDark ? _darkTextSecondary : _lightTextSecondary,
+    letterSpacing: -0.2,
+  );
 
   static TextStyle footnote(bool isDark) => TextStyle(
-        fontSize: 13,
-        fontWeight: FontWeight.w400,
-        color: isDark ? _darkTextTertiary : _lightTextTertiary,
-        letterSpacing: -0.1,
-      );
+    fontSize: 13,
+    fontWeight: FontWeight.w400,
+    color: isDark ? _darkTextTertiary : _lightTextTertiary,
+    letterSpacing: -0.1,
+  );
 
   static TextStyle caption1(bool isDark) => TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w400,
-        color: isDark ? _darkTextTertiary : _lightTextTertiary,
-        letterSpacing: 0,
-      );
+    fontSize: 12,
+    fontWeight: FontWeight.w400,
+    color: isDark ? _darkTextTertiary : _lightTextTertiary,
+    letterSpacing: 0,
+  );
 
   static TextStyle caption2(bool isDark) => TextStyle(
-        fontSize: 11,
-        fontWeight: FontWeight.w400,
-        color: isDark ? _darkTextTertiary : _lightTextTertiary,
-        letterSpacing: 0.1,
-      );
+    fontSize: 11,
+    fontWeight: FontWeight.w400,
+    color: isDark ? _darkTextTertiary : _lightTextTertiary,
+    letterSpacing: 0.1,
+  );
 
   // ============================================================================
   // SPACING CONSTANTS (Apple HIG)
@@ -519,42 +519,42 @@ class ChatAppTheme {
   // ============================================================================
 
   static BoxDecoration sentMessageDecoration(bool isDark) => BoxDecoration(
-        color: sentBubbleColor(isDark),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(18),
-          topRight: Radius.circular(18),
-          bottomLeft: Radius.circular(18),
-          bottomRight: Radius.circular(4),
-        ),
-        boxShadow: isDark
-            ? []
-            : [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.05),
-                  blurRadius: 4,
-                  offset: const Offset(0, 1),
-                ),
-              ],
-      );
+    color: sentBubbleColor(isDark),
+    borderRadius: const BorderRadius.only(
+      topLeft: Radius.circular(18),
+      topRight: Radius.circular(18),
+      bottomLeft: Radius.circular(18),
+      bottomRight: Radius.circular(4),
+    ),
+    boxShadow: isDark
+        ? []
+        : [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.05),
+              blurRadius: 4,
+              offset: const Offset(0, 1),
+            ),
+          ],
+  );
 
   static BoxDecoration receivedMessageDecoration(bool isDark) => BoxDecoration(
-        color: receivedBubbleColor(isDark),
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(18),
-          topRight: Radius.circular(18),
-          bottomLeft: Radius.circular(4),
-          bottomRight: Radius.circular(18),
-        ),
-        boxShadow: isDark
-            ? []
-            : [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.03),
-                  blurRadius: 4,
-                  offset: const Offset(0, 1),
-                ),
-              ],
-      );
+    color: receivedBubbleColor(isDark),
+    borderRadius: const BorderRadius.only(
+      topLeft: Radius.circular(18),
+      topRight: Radius.circular(18),
+      bottomLeft: Radius.circular(4),
+      bottomRight: Radius.circular(18),
+    ),
+    boxShadow: isDark
+        ? []
+        : [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.03),
+              blurRadius: 4,
+              offset: const Offset(0, 1),
+            ),
+          ],
+  );
 
   // Message text color (for contrast)
   static Color sentMessageTextColor(bool isDark) =>

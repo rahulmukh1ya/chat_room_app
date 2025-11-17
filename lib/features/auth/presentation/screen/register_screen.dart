@@ -14,8 +14,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
       TextEditingController();
-  final ValueNotifier<bool> _isObscure = ValueNotifier(false);
-  final ValueNotifier<bool> _isObscureConfirm = ValueNotifier(false);
+  final ValueNotifier<bool> _isObscure = ValueNotifier(true);
+  final ValueNotifier<bool> _isObscureConfirm = ValueNotifier(true);
 
   Widget personAvatar() {
     return CircleAvatar(
@@ -56,7 +56,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
             CustomTextFormField(
               prefixIcon: Icon(Icons.person_outline),
               controller: _usernameController,
-              label: 'Username',
+              hintText: 'Username',
             ),
             ValueListenableBuilder(
               valueListenable: _isObscure,
@@ -64,7 +64,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 return CustomTextFormField(
                   isObscure: value,
                   controller: _passwordController,
-                  label: 'Password',
+                  hintText: 'Password',
                   prefixIcon: Icon(Icons.lock_outline),
                   suffixIcon: IconButton(
                     onPressed: toggleVisibility,
@@ -82,7 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 return CustomTextFormField(
                   isObscure: value,
                   controller: _confirmPasswordController,
-                  label: 'Confirm Password',
+                  hintText: 'Confirm Password',
                   prefixIcon: Icon(Icons.lock_outline),
                   suffixIcon: IconButton(
                     onPressed: toggleVisibilityConfirmPassword,
