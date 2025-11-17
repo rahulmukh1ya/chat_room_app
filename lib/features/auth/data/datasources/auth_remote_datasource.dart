@@ -15,7 +15,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   @override
   Future<AuthResponseModel> loginUser(String username, String password) async {
     final response = client.post(
-      ApiConstants.baseUrl,
+      ApiConstants.login,
       body: {'username': username, 'password': password},
     );
 
@@ -31,7 +31,7 @@ class AuthRemoteDatasourceImpl implements AuthRemoteDatasource {
   @override
   Future<void> registerUser(String username, String password) async {
     final response = client.post(
-      ApiConstants.baseUrl,
+      ApiConstants.register,
       body: {'username': username, 'password': password},
     );
 
