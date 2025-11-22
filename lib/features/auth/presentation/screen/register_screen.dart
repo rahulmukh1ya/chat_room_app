@@ -1,5 +1,6 @@
 import 'package:chat_app/common/theme/theme_extension.dart';
 import 'package:chat_app/common/utils/custom_snack_bar.dart';
+import 'package:chat_app/common/utils/validators.dart';
 import 'package:chat_app/common/widgets/custom_text_form_field.dart';
 import 'package:chat_app/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:flutter/material.dart';
@@ -92,6 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   prefixIcon: Icon(Icons.person_outline),
                   controller: _usernameController,
                   hintText: 'Username',
+                  validator: Validators.validateUsername,
                 ),
                 ValueListenableBuilder(
                   valueListenable: _isObscure,
@@ -101,6 +103,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       controller: _passwordController,
                       hintText: 'Password',
                       prefixIcon: Icon(Icons.lock_outline),
+                      validator: Validators.validatePassword,
+
                       suffixIcon: IconButton(
                         onPressed: toggleVisibility,
 
@@ -117,6 +121,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     return CustomTextFormField(
                       isObscure: value,
                       controller: _confirmPasswordController,
+                      validator: (value) => Validators.validateConfirmPassword(
+                        value,
+                        password: _passwordController.text.trim(),
+                      ),
                       hintText: 'Confirm Password',
                       prefixIcon: Icon(Icons.lock_outline),
                       suffixIcon: IconButton(

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:chat_app/common/theme/theme_extension.dart';
 import 'package:chat_app/common/utils/custom_snack_bar.dart';
+import 'package:chat_app/common/utils/validators.dart';
 import 'package:chat_app/common/widgets/custom_text_form_field.dart';
 import 'package:chat_app/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:chat_app/features/auth/presentation/screen/register_screen.dart';
@@ -94,15 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _usernameController,
                   hintText: 'Username',
                   autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Username cannot be empty';
-                    } else if (value.length < 3) {
-                      return 'Username too short';
-                    } else {
-                      return null;
-                    }
-                  },
+                  validator: Validators.validateUsername,
                 ),
                 ValueListenableBuilder(
                   valueListenable: _isObscure,
@@ -114,15 +107,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       prefixIcon: Icon(Icons.lock_outline),
 
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Password cannot be empty';
-                        } else if (value.length < 6) {
-                          return 'Password too short';
-                        } else {
-                          return null;
-                        }
-                      },
+                      validator: Validators.validatePassword,
 
                       suffixIcon: IconButton(
                         onPressed: toggleVisibility,
