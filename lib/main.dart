@@ -1,7 +1,7 @@
 import 'package:chat_app/common/di/injection.dart';
 import 'package:chat_app/common/theme/theme_class.dart';
 import 'package:chat_app/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
-import 'package:chat_app/features/auth/presentation/screen/login_screen.dart';
+import 'package:chat_app/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
         theme: ChatAppTheme.lightTheme,
         darkTheme: ChatAppTheme.darkTheme,
         themeMode: ThemeMode.light,
-        home: const LoginScreen(),
+        home: const SplashScreen(),
       ),
     );
   }
