@@ -3,6 +3,7 @@ import 'package:chat_app/common/utils/custom_snack_bar.dart';
 import 'package:chat_app/common/utils/validators.dart';
 import 'package:chat_app/common/widgets/custom_text_form_field.dart';
 import 'package:chat_app/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:chat_app/features/auth/presentation/screen/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,7 +40,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   void _navigateToLoginPage() {
-    Navigator.pop(context);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => LoginScreen()),
+    );
   }
 
   void _handleRegistration() {

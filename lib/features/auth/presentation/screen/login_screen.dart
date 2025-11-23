@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:chat_app/common/theme/theme_extension.dart';
 import 'package:chat_app/common/utils/custom_snack_bar.dart';
 import 'package:chat_app/common/utils/validators.dart';
@@ -29,24 +27,22 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _navigateToRegisterPage() {
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => RegisterScreen()),
     );
   }
 
   void _navigateChatListScreen() {
-    Navigator.push(
+    Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(builder: (context) => ChatListScreen()),
+      (route) => false,
     );
   }
 
   void _handleLogin() {
-    log('i am here');
     if (_formKey.currentState?.validate() ?? false) {
-      log('here too??');
-
       context.read<AuthBloc>().add(
         LoginEvent(
           username: _usernameController.text.trim(),

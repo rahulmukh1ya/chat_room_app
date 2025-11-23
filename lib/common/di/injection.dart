@@ -4,6 +4,8 @@ import 'package:chat_app/features/auth/data/datasources/auth_local_datasource.da
 import 'package:chat_app/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:chat_app/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:chat_app/features/auth/domain/repositories/auth_repository.dart';
+import 'package:chat_app/features/auth/domain/usecases/check_auth_status_usecase.dart';
+import 'package:chat_app/features/auth/domain/usecases/get_user_data_usecase.dart';
 import 'package:chat_app/features/auth/domain/usecases/login_user_usercase.dart';
 import 'package:chat_app/features/auth/domain/usecases/register_user_usecase.dart';
 import 'package:chat_app/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
@@ -33,6 +35,8 @@ Future<void> setupInjection() async {
     () => AuthBloc(
       loginUserUsercase: getIt<LoginUserUsercase>(),
       registerUserUsecase: getIt<RegisterUserUsecase>(),
+      checkAuthStatusUsecase: getIt<CheckAuthStatusUsecase>(),
+      getUserDataUsecase: getIt<GetUserDataUsecase>(),
     ),
   );
 
@@ -42,6 +46,13 @@ Future<void> setupInjection() async {
   getIt.registerLazySingleton<RegisterUserUsecase>(
     () => RegisterUserUsecase(repository: getIt<AuthRepository>()),
   );
+  getIt.registerLazySingleton<CheckAuthStatusUsecase>(
+    () => CheckAuthStatusUsecase(repository: getIt<AuthRepository>()),
+  );
+  getIt.registerLazySingleton<GetUserDataUsecase>(
+    () => GetUserDataUsecase(repository: getIt<AuthRepository>()),
+  );
+
   getIt.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(
       authRemoteDatasource: getIt<AuthRemoteDatasource>(),

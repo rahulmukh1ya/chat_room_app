@@ -47,4 +47,14 @@ class AuthRepositoryImpl implements AuthRepository {
       throw CustomException('No Internet Connected');
     }
   }
+
+  @override
+  Future<bool> checkAuthStatus() {
+    return authLocalDatasource.isLoggedIn();
+  }
+
+  @override
+  Future<UserEntity> getUserData() {
+    return authLocalDatasource.getUserData();
+  }
 }
