@@ -124,7 +124,7 @@ class ChatAppTheme {
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide.none,
       ),
-      enabledBorder: OutlineInputBorder( 
+      enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide.none,
       ),

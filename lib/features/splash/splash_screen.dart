@@ -4,7 +4,6 @@ import 'package:chat_app/features/auth/presentation/screen/login_screen.dart';
 import 'package:chat_app/features/chat/presentation/screen/chat_list_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lottie/lottie.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -42,10 +41,10 @@ class SplashScreen extends StatelessWidget {
       },
       child: Scaffold(
         body: Center(
-          child: LottieBuilder.asset(
+          child: Image.asset(
             height: 120,
             width: 120,
-            'assets/lottie/loader.json',
+            'assets/gifs/happy-friends.gif',
           ),
         ),
       ),

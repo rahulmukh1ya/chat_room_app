@@ -92,7 +92,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                // personAvatar(),
                 CustomTextFormField(
                   prefixIcon: Icon(Icons.person_outline),
                   controller: _usernameController,
