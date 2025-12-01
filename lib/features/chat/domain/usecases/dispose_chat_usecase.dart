@@ -5,7 +5,7 @@ class DisposeChatUsecase {
 
   DisposeChatUsecase({required this.repository});
 
-  void dispose() {
+  void call() {
     return repository.dispose();
   }
 }

@@ -7,4 +7,24 @@ sealed class ChatEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ListenToMessagesEvent extends ChatEvent {}
+class ChatConnectEvent extends ChatEvent {}
+
+class MessageReceivedEvent extends ChatEvent {
+  final MessageEntity message;
+
+  const MessageReceivedEvent({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+class MessageSentEvent extends ChatEvent {
+  final String text;
+
+  const MessageSentEvent({required this.text});
+
+  @override
+  List<Object> get props => [text];
+}
+
+class ChatDisposeEvent extends ChatEvent {}
