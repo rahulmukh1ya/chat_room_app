@@ -4,4 +4,5 @@ class ApiConstants {
   static const health = '/health';
   static const register = '/register';
   static const login = '/login';
+  static const users = '/users';
 }

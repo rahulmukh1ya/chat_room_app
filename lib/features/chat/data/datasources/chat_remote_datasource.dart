@@ -1,21 +1,30 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:chat_app/common/constants/api_constants.dart';
+import 'package:chat_app/common/network/dio_http_client.dart';
 import 'package:chat_app/features/auth/data/datasources/auth_local_datasource.dart';
+import 'package:chat_app/features/chat/data/models/chat_user_model.dart';
 import 'package:chat_app/features/chat/data/models/message_model.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
 abstract class ChatRemoteDatasource {
   Future<void> connect();
   Stream<MessageModel> receiveMessages();
-  Future<void> sendMessage(String text);
+  Future<void> sendMessage(String recipientId, String text);
+  Future<List<ChatUserModel>> getChatUsers();
+
   void dispose();
 }
 
 class ChatRemoteDatasourceImpl implements ChatRemoteDatasource {
   final AuthLocalDatasource authLocalDataSource;
+  final DioHttpClient client;
   WebSocketChannel? _channel;
 
-  ChatRemoteDatasourceImpl({required this.authLocalDataSource});
+  ChatRemoteDatasourceImpl({
+    required this.authLocalDataSource,
+    required this.client,
+  });
 
   @override
   Future<void> connect() async {
@@ -45,16 +54,38 @@ class ChatRemoteDatasourceImpl implements ChatRemoteDatasource {
   }
 
   @override
-  Future<void> sendMessage(String text) async {
+  Future<void> sendMessage(String recipientId, String text) async {
     if (_channel == null) {
       throw Exception("WebSocket not connected. Call connect() first.");
     }
-    final payload = jsonEncode({"content": text});
+    final payload = jsonEncode({
+      "recipient_id": int.parse(recipientId),
+      "content": text,
+    });
     _channel!.sink.add(payload);
   }
 
   @override
   void dispose() {
     _channel?.sink.close();
+  }
+
+  @override
+  Future<List<ChatUserModel>> getChatUsers() async {
+    final token = await authLocalDataSource.getAccessToken();
+
+    final response = await client.get(ApiConstants.login, token: token);
+
+    final usersMapList = response['users'];
+
+    log(response.toString());
+
+    final chatUsersList =
+        (usersMapList as List<Map<String, dynamic>>?)
+            ?.map((e) => ChatUserModel.fromJson(e))
+            .toList() ??
+        [];
+
+    return chatUsersList;
   }
 }

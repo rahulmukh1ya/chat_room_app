@@ -9,6 +9,8 @@ sealed class ChatEvent extends Equatable {
 
 class ChatConnectEvent extends ChatEvent {}
 
+class GetChatUsersEvent extends ChatEvent {}
+
 class MessageReceivedEvent extends ChatEvent {
   final MessageEntity message;
 
@@ -19,9 +21,10 @@ class MessageReceivedEvent extends ChatEvent {
 }
 
 class MessageSentEvent extends ChatEvent {
+  final String recipientId;
   final String text;
 
-  const MessageSentEvent({required this.text});
+  const MessageSentEvent({required this.recipientId, required this.text});
 
   @override
   List<Object> get props => [text];

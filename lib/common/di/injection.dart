@@ -9,6 +9,15 @@ import 'package:chat_app/features/auth/domain/usecases/get_user_data_usecase.dar
 import 'package:chat_app/features/auth/domain/usecases/login_user_usercase.dart';
 import 'package:chat_app/features/auth/domain/usecases/register_user_usecase.dart';
 import 'package:chat_app/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:chat_app/features/chat/data/datasources/chat_remote_datasource.dart';
+import 'package:chat_app/features/chat/data/repositories/chat_repository_impl.dart';
+import 'package:chat_app/features/chat/domain/repositories/chat_repository.dart';
+import 'package:chat_app/features/chat/domain/usecases/connect_chat_usecase.dart';
+import 'package:chat_app/features/chat/domain/usecases/dispose_chat_usecase.dart';
+import 'package:chat_app/features/chat/domain/usecases/get_chat_users_usecase.dart';
+import 'package:chat_app/features/chat/domain/usecases/get_messages_usecase.dart';
+import 'package:chat_app/features/chat/domain/usecases/send_message_usecase.dart';
+import 'package:chat_app/features/chat/presentation/bloc/chat_bloc/chat_bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:get_it/get_it.dart';
@@ -66,5 +75,43 @@ Future<void> setupInjection() async {
   );
   getIt.registerLazySingleton<AuthLocalDatasource>(
     () => AuthLocalDatasourceImpl(prefs: getIt<SharedPreferences>()),
+  );
+
+  getIt.registerFactory<ChatBloc>(
+    () => ChatBloc(
+      connectChatUsecase: getIt<ConnectChatUsecase>(),
+      disposeChatUsecase: getIt<DisposeChatUsecase>(),
+      getMessagesUsecase: getIt<GetMessagesUsecase>(),
+      sendMessageUsecase: getIt<SendMessageUsecase>(),
+      getChatUsersUsecase: getIt<GetChatUsersUsecase>(),
+    ),
+  );
+
+  getIt.registerLazySingleton<ConnectChatUsecase>(
+    () => ConnectChatUsecase(repository: getIt<ChatRepository>()),
+  );
+  getIt.registerLazySingleton<DisposeChatUsecase>(
+    () => DisposeChatUsecase(repository: getIt<ChatRepository>()),
+  );
+  getIt.registerLazySingleton<GetMessagesUsecase>(
+    () => GetMessagesUsecase(repository: getIt<ChatRepository>()),
+  );
+  getIt.registerLazySingleton<SendMessageUsecase>(
+    () => SendMessageUsecase(repository: getIt<ChatRepository>()),
+  );
+  getIt.registerLazySingleton<GetChatUsersUsecase>(
+    () => GetChatUsersUsecase(repository: getIt<ChatRepository>()),
+  );
+
+  getIt.registerLazySingleton<ChatRepository>(
+    () =>
+        ChatRepositoryImpl(chatRemoteDatasource: getIt<ChatRemoteDatasource>()),
+  );
+
+  getIt.registerLazySingleton<ChatRemoteDatasource>(
+    () => ChatRemoteDatasourceImpl(
+      authLocalDataSource: getIt<AuthLocalDatasource>(),
+      client: getIt<DioHttpClient>(),
+    ),
   );
 }

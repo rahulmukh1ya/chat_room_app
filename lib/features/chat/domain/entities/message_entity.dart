@@ -1,6 +1,17 @@
 import 'package:equatable/equatable.dart';
 
 class MessageEntity extends Equatable {
+
+//   {
+//   "id": 123,
+//   "user_id": 1,
+//   "recipient_id": 2,
+//   "username": "john_doe",
+//   "content": "Hello!",
+//   "created_at": "2025-12-05T12:30:00Z"
+// }
+
+
   final int id;
   final int userId;
   final String username;

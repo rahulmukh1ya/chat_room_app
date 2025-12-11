@@ -5,7 +5,7 @@ class SendMessageUsecase {
 
   SendMessageUsecase({required this.repository});
 
-  Future<void> call(String text) {
-    return repository.sendMessage(text);
+  Future<void> call(String recipientId, String text) {
+    return repository.sendMessage(recipientId, text);
   }
 }

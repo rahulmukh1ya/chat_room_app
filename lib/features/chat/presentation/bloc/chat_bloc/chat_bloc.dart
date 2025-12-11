@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/features/chat/domain/entities/message_entity.dart';
+import 'package:chat_app/features/chat/domain/entities/user_entity.dart';
 import 'package:chat_app/features/chat/domain/usecases/connect_chat_usecase.dart';
 import 'package:chat_app/features/chat/domain/usecases/dispose_chat_usecase.dart';
+import 'package:chat_app/features/chat/domain/usecases/get_chat_users_usecase.dart';
 import 'package:chat_app/features/chat/domain/usecases/get_messages_usecase.dart';
 import 'package:chat_app/features/chat/domain/usecases/send_message_usecase.dart';
 import 'package:equatable/equatable.dart';
@@ -16,6 +18,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final DisposeChatUsecase disposeChatUsecase;
   final GetMessagesUsecase getMessagesUsecase;
   final SendMessageUsecase sendMessageUsecase;
+  final GetChatUsersUsecase getChatUsersUsecase;
 
   StreamSubscription<MessageEntity>? _messageSubscription;
 
@@ -24,6 +27,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     required this.disposeChatUsecase,
     required this.getMessagesUsecase,
     required this.sendMessageUsecase,
+    required this.getChatUsersUsecase,
   }) : super(ChatState()) {
     on<ChatConnectEvent>((event, emit) async {
       try {
@@ -33,12 +37,23 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
         _messageSubscription = getMessagesUsecase().listen(
           (message) => add(MessageReceivedEvent(message: message)),
-          onError: (error) => emit(state.copyWith(error: error)),
+          onError: (error) =>
+              emit(state.copyWith(error: error, status: ChatStatus.error)),
         );
-
-        emit(state.copyWith(status: ChatStatus.loaded));
       } catch (e) {
-        emit(state.copyWith(error: e.toString()));
+        emit(state.copyWith(error: e.toString(), status: ChatStatus.error));
+      }
+    });
+
+    on<GetChatUsersEvent>((event, emit) async {
+      try {
+        emit(state.copyWith(status: ChatStatus.loading));
+
+        final chatUsers = await getChatUsersUsecase();
+
+        emit(state.copyWith(status: ChatStatus.loaded, chatUsers: chatUsers));
+      } catch (e) {
+        emit(state.copyWith(error: e.toString(), status: ChatStatus.error));
       }
     });
 
@@ -53,7 +68,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
     on<MessageSentEvent>((event, emit) async {
       try {
-        await sendMessageUsecase(event.text);
+        await sendMessageUsecase(event.recipientId, event.text);
       } catch (e) {
         emit(state.copyWith(status: ChatStatus.error, error: e.toString()));
       }

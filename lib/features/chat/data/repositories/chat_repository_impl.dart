@@ -1,5 +1,6 @@
 import 'package:chat_app/features/chat/data/datasources/chat_remote_datasource.dart';
 import 'package:chat_app/features/chat/domain/entities/message_entity.dart';
+import 'package:chat_app/features/chat/domain/entities/user_entity.dart';
 import 'package:chat_app/features/chat/domain/repositories/chat_repository.dart';
 
 class ChatRepositoryImpl implements ChatRepository {
@@ -23,7 +24,12 @@ class ChatRepositoryImpl implements ChatRepository {
   }
 
   @override
-  Future<void> sendMessage(String text) {
-    return chatRemoteDatasource.sendMessage(text);
+  Future<void> sendMessage(String recipientId, String text) {
+    return chatRemoteDatasource.sendMessage(recipientId, text);
+  }
+
+  @override
+  Future<List<ChatUserEntity>> getChatUsers() {
+    return chatRemoteDatasource.getChatUsers();
   }
 }
