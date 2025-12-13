@@ -74,14 +74,14 @@ class ChatRemoteDatasourceImpl implements ChatRemoteDatasource {
   Future<List<ChatUserModel>> getChatUsers() async {
     final token = await authLocalDataSource.getAccessToken();
 
-    final response = await client.get(ApiConstants.login, token: token);
+    final response = await client.get(ApiConstants.users, token: token);
 
     final usersMapList = response['users'];
 
     log(response.toString());
 
     final chatUsersList =
-        (usersMapList as List<Map<String, dynamic>>?)
+        (usersMapList as List<dynamic>?)
             ?.map((e) => ChatUserModel.fromJson(e))
             .toList() ??
         [];

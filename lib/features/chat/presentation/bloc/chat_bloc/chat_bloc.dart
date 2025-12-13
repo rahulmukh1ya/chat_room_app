@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/features/chat/domain/entities/message_entity.dart';
@@ -39,6 +40,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
               emit(state.copyWith(error: error, status: ChatStatus.error)),
         );
       } catch (e) {
+        log(e.toString());
         emit(state.copyWith(error: e.toString(), status: ChatStatus.error));
       }
     });
@@ -60,6 +62,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
         emit(state.copyWith(status: ChatStatus.loaded, messages: messages));
       } catch (e) {
+        log(e.toString());
         emit(state.copyWith(error: e.toString(), status: ChatStatus.error));
       }
     });
@@ -68,6 +71,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       try {
         await sendMessageUsecase(event.recipientId, event.text);
       } catch (e) {
+        log(e.toString());
         emit(state.copyWith(status: ChatStatus.error, error: e.toString()));
       }
     });

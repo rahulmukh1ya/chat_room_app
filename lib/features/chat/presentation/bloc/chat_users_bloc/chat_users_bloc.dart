@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/features/chat/domain/entities/user_entity.dart';
 import 'package:chat_app/features/chat/domain/usecases/get_chat_users_usecase.dart';
@@ -20,6 +22,7 @@ class ChatUsersBloc extends Bloc<ChatUsersEvent, ChatUsersState> {
           state.copyWith(status: ChatUsersStatus.loaded, chatUsers: chatUsers),
         );
       } catch (e) {
+        log(e.toString());
         emit(
           state.copyWith(message: e.toString(), status: ChatUsersStatus.error),
         );

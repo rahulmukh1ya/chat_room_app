@@ -4,7 +4,7 @@ enum ChatUsersStatus { initial, loading, loaded, error }
 
 final class ChatUsersState extends Equatable {
   final ChatUsersStatus status;
-  final String? message;
+  final String message;
   final List<ChatUserEntity> chatUsers;
   const ChatUsersState({
     this.status = ChatUsersStatus.initial,
@@ -19,7 +19,7 @@ final class ChatUsersState extends Equatable {
   }) {
     return ChatUsersState(
       status: status ?? this.status,
-      message: message ?? this.message,
+      message: message ?? '',
       chatUsers: chatUsers ?? this.chatUsers,
     );
   }

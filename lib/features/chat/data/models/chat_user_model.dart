@@ -11,7 +11,7 @@ class ChatUserModel extends ChatUserEntity {
     return ChatUserModel(
       id: json['id'],
       username: json['username'],
-      createdAt: DateTime.parse(json['createdAt']),
+      createdAt: DateTime.parse(json['created_at']),
     );
   }
 }

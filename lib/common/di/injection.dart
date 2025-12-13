@@ -18,7 +18,7 @@ import 'package:chat_app/features/chat/domain/usecases/get_chat_users_usecase.da
 import 'package:chat_app/features/chat/domain/usecases/get_messages_usecase.dart';
 import 'package:chat_app/features/chat/domain/usecases/get_user_conversation_usecase.dart';
 import 'package:chat_app/features/chat/domain/usecases/send_message_usecase.dart';
-import 'package:chat_app/features/chat/presentation/bloc/bloc/chat_users_bloc.dart';
+import 'package:chat_app/features/chat/presentation/bloc/chat_users_bloc/chat_users_bloc.dart';
 import 'package:chat_app/features/chat/presentation/bloc/chat_bloc/chat_bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
