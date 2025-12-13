@@ -9,7 +9,15 @@ sealed class ChatEvent extends Equatable {
 
 class ChatConnectEvent extends ChatEvent {}
 
-class GetChatUsersEvent extends ChatEvent {}
+
+class GetUserConversationEvent extends ChatEvent {
+  final String userId;
+
+  const GetUserConversationEvent({required this.userId});
+
+  @override
+  List<Object> get props => [userId];
+}
 
 class MessageReceivedEvent extends ChatEvent {
   final MessageEntity message;

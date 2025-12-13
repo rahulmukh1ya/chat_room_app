@@ -16,7 +16,9 @@ import 'package:chat_app/features/chat/domain/usecases/connect_chat_usecase.dart
 import 'package:chat_app/features/chat/domain/usecases/dispose_chat_usecase.dart';
 import 'package:chat_app/features/chat/domain/usecases/get_chat_users_usecase.dart';
 import 'package:chat_app/features/chat/domain/usecases/get_messages_usecase.dart';
+import 'package:chat_app/features/chat/domain/usecases/get_user_conversation_usecase.dart';
 import 'package:chat_app/features/chat/domain/usecases/send_message_usecase.dart';
+import 'package:chat_app/features/chat/presentation/bloc/bloc/chat_users_bloc.dart';
 import 'package:chat_app/features/chat/presentation/bloc/chat_bloc/chat_bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
@@ -83,7 +85,13 @@ Future<void> setupInjection() async {
       disposeChatUsecase: getIt<DisposeChatUsecase>(),
       getMessagesUsecase: getIt<GetMessagesUsecase>(),
       sendMessageUsecase: getIt<SendMessageUsecase>(),
-      getChatUsersUsecase: getIt<GetChatUsersUsecase>(),
+      getUserConversationUsecase: getIt<GetUserConversationUsecase>(),
+    ),
+  );
+
+  getIt.registerFactory<ChatUsersBloc>(
+    () => ChatUsersBloc(
+      getChatUsersUsecase: getIt<GetChatUsersUsecase>()
     ),
   );
 
@@ -101,6 +109,9 @@ Future<void> setupInjection() async {
   );
   getIt.registerLazySingleton<GetChatUsersUsecase>(
     () => GetChatUsersUsecase(repository: getIt<ChatRepository>()),
+  );
+  getIt.registerLazySingleton<GetUserConversationUsecase>(
+    () => GetUserConversationUsecase(repository: getIt<ChatRepository>()),
   );
 
   getIt.registerLazySingleton<ChatRepository>(
