@@ -1,31 +1,31 @@
 import 'package:equatable/equatable.dart';
 
 class MessageEntity extends Equatable {
+  //   {
+  //   "id": 123, //message id
+  //   "user_id": 1, //sender id
+  //   "recipient_id": 2, //receiver id
+  //   "username": "john_doe", //sender name
+  //   "content": "Hello!", // content sent by sender
+  //   "created_at": "2025-12-05T12:30:00Z"
+  // }
 
-//   {
-//   "id": 123,
-//   "user_id": 1,
-//   "recipient_id": 2,
-//   "username": "john_doe",
-//   "content": "Hello!",
-//   "created_at": "2025-12-05T12:30:00Z"
-// }
-
-
-  final int id;
-  final int userId;
-  final String username;
-  final String content;
+  final int messageId;
+  final int senderId;
+  final int receiverId;
+  final String senderName;
+  final String receivedMessage;
   final DateTime createdAt;
 
-  const MessageEntity({
-    required this.id,
-    required this.userId,
-    required this.username,
-    required this.content,
+ const  MessageEntity({
+    required this.messageId,
+    required this.senderId,
+    required this.receiverId,
+    required this.senderName,
+    required this.receivedMessage,
     required this.createdAt,
   });
-
+  
   @override
-  List<Object?> get props => [id, userId, username, content, createdAt];
+  List<Object?> get props => [messageId, senderId, receiverId, senderName, receivedMessage, createdAt];
 }

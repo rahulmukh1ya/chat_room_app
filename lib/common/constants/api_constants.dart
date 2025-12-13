@@ -5,4 +5,6 @@ class ApiConstants {
   static const register = '/register';
   static const login = '/login';
   static const users = '/users';
+  static const getUserConversation = '/conversations'; // "/conversations/:userId/messages"
+
 }

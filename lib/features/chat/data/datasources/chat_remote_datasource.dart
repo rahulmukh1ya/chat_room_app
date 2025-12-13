@@ -12,7 +12,7 @@ abstract class ChatRemoteDatasource {
   Stream<MessageModel> receiveMessages();
   Future<void> sendMessage(String recipientId, String text);
   Future<List<ChatUserModel>> getChatUsers();
-
+  Future<List<MessageModel>> getUserConversation(String userId);
   void dispose();
 }
 
@@ -56,7 +56,7 @@ class ChatRemoteDatasourceImpl implements ChatRemoteDatasource {
   @override
   Future<void> sendMessage(String recipientId, String text) async {
     if (_channel == null) {
-      throw Exception("WebSocket not connected. Call connect() first.");
+      throw Exception("WebSocket not connected.");
     }
     final payload = jsonEncode({
       "recipient_id": int.parse(recipientId),
@@ -87,5 +87,27 @@ class ChatRemoteDatasourceImpl implements ChatRemoteDatasource {
         [];
 
     return chatUsersList;
+  }
+
+  @override
+  Future<List<MessageModel>> getUserConversation(String userId) async {
+    final token = await authLocalDataSource.getAccessToken();
+
+    final response = await client.get(
+      "${ApiConstants.getUserConversation}/$userId/messages",
+      token: token,
+    );
+
+    final data = response['messages'];
+
+    log(response.toString());
+
+    final userMessages =
+        (data as List<Map<String, dynamic>>?)
+            ?.map((e) => MessageModel.fromJson(e))
+            .toList() ??
+        [];
+
+    return userMessages;
   }
 }
