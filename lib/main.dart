@@ -1,6 +1,5 @@
 import 'package:chat_app/common/di/injection.dart';
 import 'package:chat_app/common/theme/theme_class.dart';
-import 'package:chat_app/features/auth/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:chat_app/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,9 +17,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => getIt<AuthBloc>()..add(CheckAuthStatusEvent()),
-        ),
+        // BlocProvider(
+        //   create: (context) => getIt<AuthBloc>()..add(CheckAuthStatusEvent()),
+        // ),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

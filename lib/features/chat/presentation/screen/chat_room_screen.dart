@@ -2,8 +2,8 @@ import 'package:chat_app/features/chat/presentation/bloc/chat_bloc/chat_bloc.dar
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ChatScreen extends StatelessWidget {
-  const ChatScreen({super.key});
+class ChatRoomScreen extends StatelessWidget {
+  const ChatRoomScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

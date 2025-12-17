@@ -1,113 +1,130 @@
-import 'dart:convert';
 import 'dart:developer';
+
 import 'package:chat_app/common/constants/api_constants.dart';
 import 'package:chat_app/common/network/dio_http_client.dart';
-import 'package:chat_app/features/auth/data/datasources/auth_local_datasource.dart';
-import 'package:chat_app/features/chat/data/models/chat_user_model.dart';
-import 'package:chat_app/features/chat/data/models/message_model.dart';
-import 'package:web_socket_channel/web_socket_channel.dart';
+import 'package:chat_app/common/services/pusher_service.dart';
+import 'package:chat_app/features/chat/data/models/joined_room_model.dart';
+import 'package:chat_app/features/chat/data/models/received_message_model.dart';
+import 'package:chat_app/features/chat/data/models/room_model.dart';
+import 'package:chat_app/features/chat/data/models/sent_message_model.dart';
+import 'package:chat_app/features/chat/data/models/user_model.dart';
 
 abstract class ChatRemoteDatasource {
-  Future<void> connect();
-  Stream<MessageModel> receiveMessages();
-  Future<void> sendMessage(String recipientId, String text);
-  Future<List<ChatUserModel>> getChatUsers();
-  Future<List<MessageModel>> getUserConversation(String userId);
-  void dispose();
+  Future<void> initializePusher();
+  Future<void> disconnectPusher();
+
+  Future<RoomModel> createRoom(String roomName, String username);
+  Future<JoinedRoomModel> joinRoom(String roomId, String username);
+  Future<bool> leaveRoom(String roomId, String userId);
+
+  Future<bool> sendMessage(SentMessageModel message);
+
+  Stream<ReceivedMessageModel> get messages;
+  Stream<UserModel> get userJoined;
+  Stream<UserModel> get userLeft;
 }
 
 class ChatRemoteDatasourceImpl implements ChatRemoteDatasource {
-  final AuthLocalDatasource authLocalDataSource;
   final DioHttpClient client;
-  WebSocketChannel? _channel;
+  final PusherService pusherService;
 
-  ChatRemoteDatasourceImpl({
-    required this.authLocalDataSource,
-    required this.client,
-  });
+  ChatRemoteDatasourceImpl({required this.pusherService, required this.client});
 
   @override
-  Future<void> connect() async {
+  Future<void> initializePusher() async {
     try {
-      final token = await authLocalDataSource.getAccessToken();
-      final uri = Uri(
-        scheme: 'ws',
-        host: ApiConstants.wsUrl,
-        path: '/ws',
-        queryParameters: {"token": token},
+      await pusherService.init();
+    } catch (e) {
+      log('Error: ${e.toString()}');
+      throw Exception(e.toString());
+    }
+  }
+
+  @override
+  Future<RoomModel> createRoom(String roomName, String username) async {
+    try {
+      final response = await client.post(
+        ApiConstants.createRoom,
+        body: {"roomName": roomName, "username": username},
       );
 
-      _channel = WebSocketChannel.connect(uri);
+      final roomModel = RoomModel.fromJson(response);
+
+      await pusherService.subscribeToRoom(roomModel.roomId);
+
+      return roomModel;
     } catch (e) {
       throw Exception(e.toString());
     }
   }
 
   @override
-  Stream<MessageModel> receiveMessages() {
-    if (_channel == null) {
-      throw Exception("WebSocket not connected. Call connect() first.");
+  Future<JoinedRoomModel> joinRoom(String roomId, String username) async {
+    try {
+      final response = await client.post(
+        ApiConstants.joinRoom,
+        body: {"roomId": roomId, "username": username},
+      );
+
+      final joinedRoomModel = JoinedRoomModel.fromJson(response);
+
+      await pusherService.subscribeToRoom(joinedRoomModel.room.roomId);
+
+      return joinedRoomModel;
+    } catch (e) {
+      throw Exception(e.toString());
     }
-    return _channel!.stream.map(
-      (event) => MessageModel.fromJson(jsonDecode(event)),
-    );
   }
 
   @override
-  Future<void> sendMessage(String recipientId, String text) async {
-    if (_channel == null) {
-      throw Exception("WebSocket not connected.");
+  Future<bool> leaveRoom(String roomId, String userId) async {
+    try {
+      final response = await client.post(
+        ApiConstants.leaveRoom,
+        body: {"roomId": roomId, "userId": userId},
+      );
+
+      await pusherService.unsubscribe();
+
+      return response['valid'] as bool;
+    } catch (e) {
+      throw Exception(e.toString());
     }
-    final payload = jsonEncode({
-      "recipient_id": int.parse(recipientId),
-      "content": text,
-    });
-    _channel!.sink.add(payload);
   }
 
   @override
-  void dispose() {
-    _channel?.sink.close();
+  Future<bool> sendMessage(SentMessageModel message) async {
+    try {
+      final response = await client.post(
+        ApiConstants.sendMessage,
+        body: message.toJson(),
+      );
+
+      final status = response['status'];
+
+      status.toString().toLowerCase() == 'sent' ? true : false;
+
+      return true;
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 
   @override
-  Future<List<ChatUserModel>> getChatUsers() async {
-    final token = await authLocalDataSource.getAccessToken();
-
-    final response = await client.get(ApiConstants.users, token: token);
-
-    final usersMapList = response['users'];
-
-    log(response.toString());
-
-    final chatUsersList =
-        (usersMapList as List<dynamic>?)
-            ?.map((e) => ChatUserModel.fromJson(e))
-            .toList() ??
-        [];
-
-    return chatUsersList;
+  Future<void> disconnectPusher() async {
+    try {
+      await pusherService.disconnect();
+    } catch (e) {
+      throw Exception(e.toString());
+    }
   }
 
   @override
-  Future<List<MessageModel>> getUserConversation(String userId) async {
-    final token = await authLocalDataSource.getAccessToken();
+  Stream<ReceivedMessageModel> get messages => pusherService.messages;
 
-    final response = await client.get(
-      "${ApiConstants.getUserConversation}/$userId/messages",
-      token: token,
-    );
+  @override
+  Stream<UserModel> get userJoined => pusherService.userJoined;
 
-    final data = response['messages'];
-
-    log(response.toString());
-
-    final userMessages =
-        (data as List<Map<String, dynamic>>?)
-            ?.map((e) => MessageModel.fromJson(e))
-            .toList() ??
-        [];
-
-    return userMessages;
-  }
+  @override
+  Stream<UserModel> get userLeft => pusherService.userLeft;
 }
