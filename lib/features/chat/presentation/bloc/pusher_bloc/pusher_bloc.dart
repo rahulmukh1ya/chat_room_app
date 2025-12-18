@@ -14,7 +14,12 @@ class PusherBloc extends Bloc<PusherEvent, PusherState> {
 
         await chatRepository.initializePusher();
 
-        emit(state.copyWith(status: PusherStatus.connected));
+        emit(
+          state.copyWith(
+            status: PusherStatus.connected,
+            message: 'Pusher connected successfully.',
+          ),
+        );
       } catch (e) {
         emit(state.copyWith(status: PusherStatus.error, message: e.toString()));
       }
