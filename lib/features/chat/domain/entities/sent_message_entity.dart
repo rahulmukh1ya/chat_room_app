@@ -15,6 +15,22 @@ class SentMessageEntity extends Equatable {
     required this.timestamp,
   });
 
+  SentMessageEntity copyWith({
+    String? roomId,
+    String? encryptedMessage,
+    String? userId,
+    String? username,
+    String? timestamp,
+  }) {
+    return SentMessageEntity(
+      roomId: roomId ?? this.roomId,
+      encryptedMessage: encryptedMessage ?? this.encryptedMessage,
+      userId: userId ?? this.userId,
+      username: username ?? this.username,
+      timestamp: timestamp ?? this.timestamp,
+    );
+  }
+
   @override
   List<Object> get props => [
     roomId,

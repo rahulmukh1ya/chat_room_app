@@ -46,4 +46,9 @@ class ChatRepositoryImpl implements ChatRepository {
 
   @override
   Stream<UserEntity> get userLeft => chatRemoteDatasource.userLeft;
+
+  @override
+  Future<void> disconnectPusher() {
+    return chatRemoteDatasource.disconnectPusher();
+  }
 }

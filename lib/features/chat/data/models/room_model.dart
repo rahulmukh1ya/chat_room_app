@@ -9,13 +9,13 @@ class RoomModel extends RoomEntity {
     required super.users,
   });
 
-  factory RoomModel.fromJson(Map<String, dynamic> json) {
+  factory RoomModel.fromJson(Map<String, dynamic>? json) {
     return RoomModel(
-      roomName: json['roomName'],
-      roomId: json['roomId'],
-      pin: json['pin'],
+      roomName: json?['roomName'] ?? '',
+      roomId: json?['roomId'] ?? '',
+      pin: json?['pin'] ?? '',
       users:
-          (json['users'] as List<dynamic>?)
+          (json?['users'] as List<dynamic>?)
               ?.map((e) => UserModel.fromJson(e))
               .toList() ??
           [],

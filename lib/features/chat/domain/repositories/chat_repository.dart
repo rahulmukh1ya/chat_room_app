@@ -6,6 +6,7 @@ import 'package:chat_app/features/chat/domain/entities/user_entity.dart';
 
 abstract class ChatRepository {
   Future<void> initializePusher();
+  Future<void> disconnectPusher();
 
   Future<RoomEntity> createRoom(String roomName, String username);
   Future<JoinedRoomEntity> joinRoom(String roomId, String username);

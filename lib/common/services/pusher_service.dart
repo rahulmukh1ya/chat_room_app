@@ -86,7 +86,7 @@ class PusherService {
           _messageController.add(ReceivedMessageModel.fromJson(data));
           break;
         default:
-          log('⚠️ Unhandled event: ${event.eventName}');
+          log('Unhandled event: ${event.eventName}');
       }
     } catch (e) {
       log('Event parse error: $e');

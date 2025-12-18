@@ -6,6 +6,20 @@ class ReceivedMessageEntity extends Equatable {
   final String username;
   final DateTime timestamp;
 
+  ReceivedMessageEntity copyWith({
+    String? decryptedMessage,
+    String? userId,
+    String? username,
+    DateTime? timestamp,
+  }) {
+    return ReceivedMessageEntity(
+      decryptedMessage: decryptedMessage ?? this.decryptedMessage,
+      userId: userId ?? this.userId,
+      username: username ?? this.username,
+      timestamp: timestamp ?? this.timestamp,
+    );
+  }
+
   const ReceivedMessageEntity({
     required this.decryptedMessage,
     required this.userId,
