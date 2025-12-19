@@ -9,5 +9,10 @@ class JoinedRoomEntity extends Equatable {
   const JoinedRoomEntity({required this.room, required this.currentUser});
 
   @override
-  List<Object> get props => throw [room, currentUser];
+  String toString() {
+    return 'JoinedRoomEntity { room: $room, currentUser: $currentUser }';
+  }
+
+  @override
+  List<Object> get props => [room, currentUser];
 }

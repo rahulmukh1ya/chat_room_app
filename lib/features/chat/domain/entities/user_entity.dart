@@ -7,5 +7,10 @@ class UserEntity extends Equatable {
   const UserEntity({required this.username, required this.userId});
 
   @override
+  String toString() {
+    return 'UserEntity { username: $username, userId: $userId }';
+  }
+
+  @override
   List<Object> get props => [username, userId];
 }

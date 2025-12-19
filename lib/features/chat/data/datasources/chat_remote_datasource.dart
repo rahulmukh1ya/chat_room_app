@@ -72,6 +72,8 @@ class ChatRemoteDatasourceImpl implements ChatRemoteDatasource {
 
       final joinedRoomModel = JoinedRoomModel.fromJson(response);
 
+      log(joinedRoomModel.toString());
+
       await pusherService.subscribeToRoom(joinedRoomModel.room.roomId);
 
       return joinedRoomModel;

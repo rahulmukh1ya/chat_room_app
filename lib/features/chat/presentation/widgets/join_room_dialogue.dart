@@ -103,7 +103,7 @@ class _JoinRoomDialogueState extends State<JoinRoomDialogue> {
                       if (_formKey.currentState?.validate() ?? false) {
                         context.read<RoomBloc>().add(
                           JoinRoomEvent(
-                            roomId: _roomPINController.text.trim(),
+                            roomId: _roomIDController.text.trim(),
                             userName: _userNameController.text.trim(),
                             pin: _roomPINController.text.trim(),
                           ),

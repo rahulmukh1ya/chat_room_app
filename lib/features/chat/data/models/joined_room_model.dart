@@ -7,7 +7,7 @@ class JoinedRoomModel extends JoinedRoomEntity {
 
   factory JoinedRoomModel.fromJson(Map<String, dynamic>? json) {
     return JoinedRoomModel(
-      room: RoomModel.fromJson(json?['room'] ?? ''),
+      room: RoomModel.fromJsonForJoinedUser(json?['room'] ?? ''),
       currentUser: UserModel.fromJson(json?['user'] ?? ''),
     );
   }

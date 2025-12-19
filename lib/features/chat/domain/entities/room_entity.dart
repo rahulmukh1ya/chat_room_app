@@ -15,5 +15,15 @@ class RoomEntity extends Equatable {
   });
 
   @override
+  String toString() {
+    return 'RoomEntity { '
+        'roomName: $roomName, '
+        'roomId: $roomId, '
+        'pin: $pin, '
+        'users: $users '
+        '}';
+  }
+
+  @override
   List<Object> get props => [roomName, roomId, pin, users];
 }
