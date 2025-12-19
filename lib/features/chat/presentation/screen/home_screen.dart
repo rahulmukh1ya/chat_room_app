@@ -1,7 +1,29 @@
+import 'package:chat_app/features/chat/presentation/widgets/create_room_dialogue.dart';
+import 'package:chat_app/features/chat/presentation/widgets/join_room_dialogue.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
+
+  Future<void> _showCreateRoomDialogue(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return CreateRoomDialogue();
+      },
+    );
+  }
+
+  Future<void> _showJoinRoomDialogue(BuildContext context) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return JoinRoomDialogue();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,16 +44,20 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Expanded(
                     child: ButtonWidget(
-                      iconData: Icons.forum_outlined,
+                      iconData: Icons.groups_outlined,
                       title: 'Create Room',
-                      onTap: () {},
+                      onTap: () {
+                        _showCreateRoomDialogue(context);
+                      },
                     ),
                   ),
                   Expanded(
                     child: ButtonWidget(
                       iconData: Icons.person_add_outlined,
                       title: 'Join Room',
-                      onTap: () {},
+                      onTap: () {
+                        _showJoinRoomDialogue(context);
+                      },
                     ),
                   ),
                 ],

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:chat_app/common/services/encryption_service.dart';
@@ -49,6 +50,7 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
 
     on<CreateRoomEvent>((event, emit) async {
       try {
+        emit(state.copyWith(status: RoomStatus.loading));
         final roomEntity = await chatRepository.createRoom(
           event.roomName,
           event.username,
@@ -63,15 +65,20 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
             roomEntity: roomEntity,
             roomPIN: roomEntity.pin,
             currentUser: currentUser,
+            message: 'Room created successfully.',
             status: RoomStatus.roomCreateSuccess,
           ),
         );
       } catch (e) {
+        log(e.toString());
+
         emit(state.copyWith(status: RoomStatus.error, message: e.toString()));
       }
     });
 
     on<JoinRoomEvent>((event, emit) async {
+      emit(state.copyWith(status: RoomStatus.loading));
+
       try {
         final joinedRoomEntity = await chatRepository.joinRoom(
           event.roomId,
@@ -89,15 +96,20 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
             roomEntity: roomEntity,
             currentUser: currentUser,
             roomPIN: event.pin,
+            message: 'Room joined successfully.',
             status: RoomStatus.roomJoinedSuccess,
           ),
         );
       } catch (e) {
+        log(e.toString());
+
         emit(state.copyWith(status: RoomStatus.error, message: e.toString()));
       }
     });
 
     on<LeaveRoomEvent>((event, emit) async {
+      emit(state.copyWith(status: RoomStatus.loading));
+
       try {
         final leaveSuccess = await chatRepository.leaveRoom(
           event.roomId,
@@ -117,6 +129,8 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
           );
         }
       } catch (e) {
+        log(e.toString());
+
         emit(state.copyWith(status: RoomStatus.error, message: e.toString()));
       }
     });
@@ -134,12 +148,18 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
 
         final sentSuccess = await chatRepository.sendMessage(sentMessageEntity);
 
+        final receivedMessageEntity = ReceivedMessageEntity(
+          decryptedMessage: event.sentMessage.encryptedMessage,
+          userId: event.sentMessage.userId,
+          username: event.sentMessage.username,
+          timestamp: DateTime.parse(event.sentMessage.timestamp),
+        );
         if (sentSuccess) {
           emit(
             state.copyWith(
               receivedMessages: List<ReceivedMessageEntity>.from([
                 ...state.receivedMessages,
-                event.sentMessage,
+                receivedMessageEntity,
               ]),
               status: RoomStatus.loaded,
             ),
@@ -153,6 +173,8 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
           );
         }
       } catch (e) {
+        log(e.toString());
+
         emit(
           state.copyWith(
             message: 'Cannot decrypt message. Incorrect Pin',
@@ -163,9 +185,10 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
     });
 
     on<OnMessageReceivedEvent>((event, emit) {
-      final isNotMe = event.receivedMessage.userId != state.currentUser?.userId;
+      final isMe = event.receivedMessage.userId == state.currentUser?.userId;
 
-      if (isNotMe) {
+      if (isMe == false) {
+        log('i am here also enter in this condition ');
         try {
           final decryptedMessage = EncryptionService.decryptMessage(
             event.receivedMessage.decryptedMessage,
@@ -184,6 +207,8 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
             ),
           );
         } catch (e) {
+          log(e.toString());
+
           emit(
             state.copyWith(
               message: 'Cannot decrypt message. Incorrect Pin',
@@ -195,9 +220,9 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
     });
 
     on<OnUserJoinedEvent>((event, emit) {
-      final isNotMe = event.joinedUser.userId != state.currentUser?.userId;
+      final isMe = event.joinedUser.userId == state.currentUser?.userId;
 
-      if (isNotMe) {
+      if (isMe == false) {
         emit(
           state.copyWith(
             joinedUser: event.joinedUser,
@@ -208,9 +233,9 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
     });
 
     on<OnUserLeftEvent>((event, emit) {
-      final isNotMe = event.leftUser.userId != state.currentUser?.userId;
+      final isMe = event.leftUser.userId == state.currentUser?.userId;
 
-      if (isNotMe) {
+      if (isMe == false) {
         emit(
           state.copyWith(leftUser: event.leftUser, status: RoomStatus.userLeft),
         );
@@ -218,6 +243,7 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
     });
 
     on<OnErrorEvent>((event, emit) {
+      log(event.message);
       emit(state.copyWith(message: event.message, status: RoomStatus.error));
     });
   }

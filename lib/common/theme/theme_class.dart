@@ -118,19 +118,20 @@ class ChatAppTheme {
     // Input Decoration Theme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: _lightSurfaceVariant,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      // fillColor: _lightSurfaceVariant,
+      fillColor: Colors.white,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide.none,
+        // borderSide: BorderSide.none,
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide.none,
+        // borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide.none,
+        // borderSide: BorderSide.none,
       ),
       hintStyle: const TextStyle(
         color: _lightTextTertiary,
@@ -278,19 +279,20 @@ class ChatAppTheme {
     // Input Decoration Theme
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
-      fillColor: _darkSurfaceVariant,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      // fillColor: _darkSurfaceVariant,
+      fillColor: Colors.white,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide.none,
+        // borderSide: BorderSide.none,
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide.none,
+        // borderSide: BorderSide.none,
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide.none,
+        // borderSide: BorderSide.none,
       ),
       hintStyle: const TextStyle(
         color: _darkTextTertiary,

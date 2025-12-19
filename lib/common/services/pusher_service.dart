@@ -65,7 +65,7 @@ class PusherService {
     );
   }
 
-  void _handleEvent(PusherEvent event) {
+  void _handleEvent(dynamic event) {
     log('Event: ${event.eventName}');
 
     if (event.data == null) return;
@@ -73,17 +73,17 @@ class PusherService {
     try {
       final data = event.data is String
           ? jsonDecode(event.data) as Map<String, dynamic>
-          : event.data as Map<String, dynamic>;
+          : Map<String, dynamic>.from(event.data as Map);
 
       switch (event.eventName) {
         case 'new-message':
-          _messageController.add(ReceivedMessageModel.fromJson(data));
+          _messageController.add(ReceivedMessageModel.fromJson(data['data']));
           break;
         case 'user-joined':
-          _messageController.add(ReceivedMessageModel.fromJson(data));
+          _userJoinedController.add(UserModel.fromJson(data['user']));
           break;
         case 'user-left':
-          _messageController.add(ReceivedMessageModel.fromJson(data));
+          _userLeftController.add(UserModel.fromJson(data['user']));
           break;
         default:
           log('Unhandled event: ${event.eventName}');

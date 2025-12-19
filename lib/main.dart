@@ -1,6 +1,7 @@
 import 'package:chat_app/common/di/injection.dart';
 import 'package:chat_app/common/theme/theme_class.dart';
 import 'package:chat_app/features/chat/presentation/bloc/pusher_bloc/pusher_bloc.dart';
+import 'package:chat_app/features/chat/presentation/bloc/room_bloc/room_bloc.dart';
 import 'package:chat_app/features/splash/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
           create: (context) =>
               getIt<PusherBloc>()..add(InitializePusherEvent()),
         ),
+        BlocProvider(create: (context) => getIt<RoomBloc>()),
       ],
       child: MaterialApp(
         title: 'E2EE Chat App',

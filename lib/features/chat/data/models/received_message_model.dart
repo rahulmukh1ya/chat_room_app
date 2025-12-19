@@ -1,3 +1,4 @@
+
 import 'package:chat_app/features/chat/domain/entities/received_message_entity.dart';
 
 class ReceivedMessageModel extends ReceivedMessageEntity {
@@ -13,7 +14,9 @@ class ReceivedMessageModel extends ReceivedMessageEntity {
       decryptedMessage: json?['encryptedMessage'] ?? '',
       userId: json?['userId'] ?? '',
       username: json?['username'] ?? '',
-      timestamp: json?['timestamp'] ?? DateTime.now().toIso8601String(),
+      timestamp: json?['timestamp'] != null
+          ? DateTime.parse(json!['timestamp'] as String)
+          : DateTime.now(),
     );
   }
 }

@@ -43,6 +43,10 @@ class ChatRemoteDatasourceImpl implements ChatRemoteDatasource {
   @override
   Future<RoomModel> createRoom(String roomName, String username) async {
     try {
+      final responseX = await client.get('/health');
+
+      log(responseX.toString());
+
       final response = await client.post(
         ApiConstants.createRoom,
         body: {"roomName": roomName, "username": username},

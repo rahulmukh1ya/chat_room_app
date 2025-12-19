@@ -28,6 +28,11 @@ class ReceivedMessageEntity extends Equatable {
   });
 
   @override
+  String toString() {
+    return 'ReceivedMessageEntity { decryptedMessage: $decryptedMessage, userId: $userId, username: $username, timestamp: $timestamp }';
+  }
+
+  @override
   List<Object> get props => [timestamp, decryptedMessage, userId, username];
 }
 
