@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:crypto/crypto.dart';
 import 'package:encrypt/encrypt.dart' as encrypt;
 
@@ -34,7 +35,8 @@ class EncryptionService {
 
       return encrypter.decrypt(encrypted, iv: iv);
     } catch (e) {
-      return null;
+      log(e.toString());
+      throw Exception('Failed to decrypt message.');
     }
   }
 

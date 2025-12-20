@@ -63,6 +63,7 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
         emit(
           state.copyWith(
             roomEntity: roomEntity,
+            users: roomEntity.users,
             roomPIN: roomEntity.pin,
             currentUser: currentUser,
             message: 'Room created successfully.',
@@ -93,7 +94,9 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
 
         emit(
           state.copyWith(
+            receivedMessages: const [],
             roomEntity: roomEntity,
+            users: roomEntity.users,
             currentUser: currentUser,
             roomPIN: event.pin,
             message: 'Room joined successfully.',
@@ -119,7 +122,13 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
         cancelSubscriptions();
 
         if (leaveSuccess) {
-          emit(state.copyWith(status: RoomStatus.roomLeftSuccess));
+          //this resets the state
+          emit(
+            RoomState(
+              status: RoomStatus.roomLeftSuccess,
+              message: 'Left room successfully.',
+            ),
+          );
         } else {
           emit(
             state.copyWith(
@@ -188,7 +197,6 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
       final isMe = event.receivedMessage.userId == state.currentUser?.userId;
 
       if (isMe == false) {
-        log('i am here also enter in this condition ');
         try {
           final decryptedMessage = EncryptionService.decryptMessage(
             event.receivedMessage.decryptedMessage,
@@ -209,8 +217,14 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
         } catch (e) {
           log(e.toString());
 
+          final newMessages = List<ReceivedMessageEntity>.from([
+            ...state.receivedMessages,
+            event.receivedMessage,
+          ]);
+
           emit(
             state.copyWith(
+              receivedMessages: newMessages,
               message: 'Cannot decrypt message. Incorrect Pin',
               status: RoomStatus.error,
             ),
@@ -222,9 +236,21 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
     on<OnUserJoinedEvent>((event, emit) {
       final isMe = event.joinedUser.userId == state.currentUser?.userId;
 
-      if (isMe == false) {
+      final exists = state.users.any(
+        (u) => u.userId == event.joinedUser.userId,
+      );
+
+      final newUser = UserEntity(
+        username: event.joinedUser.username,
+        userId: event.joinedUser.userId,
+      );
+
+      if (!exists && (isMe == false)) {
+        final newUsers = List<UserEntity>.from([...state.users, newUser]);
+
         emit(
           state.copyWith(
+            users: newUsers,
             joinedUser: event.joinedUser,
             status: RoomStatus.userJoined,
           ),
@@ -236,8 +262,16 @@ class RoomBloc extends Bloc<RoomEvent, RoomState> {
       final isMe = event.leftUser.userId == state.currentUser?.userId;
 
       if (isMe == false) {
+        final newUsers = state.users
+            .where((user) => user.userId != event.leftUser.userId)
+            .toList();
+
         emit(
-          state.copyWith(leftUser: event.leftUser, status: RoomStatus.userLeft),
+          state.copyWith(
+            users: newUsers,
+            leftUser: event.leftUser,
+            status: RoomStatus.userLeft,
+          ),
         );
       }
     });

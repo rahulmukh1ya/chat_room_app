@@ -20,6 +20,13 @@ class _CreateRoomDialogueState extends State<CreateRoomDialogue> {
   final _formKey = GlobalKey<FormState>();
 
   @override
+  void dispose() {
+    _userNameController.dispose();
+    _roomNameController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocConsumer<RoomBloc, RoomState>(
       listener: (context, state) {

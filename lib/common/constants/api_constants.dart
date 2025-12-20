@@ -1,6 +1,6 @@
 class ApiConstants {
   // static const baseUrl = 'http://localhost:8080';
-  static const baseUrl = 'http://192.168.1.16:8080';
+  static const baseUrl = 'https://curably-unconciliatory-ernesto.ngrok-free.dev';
 
   static const createRoom = '/create-room';
   static const sendMessage = '/send-message';
