@@ -15,11 +15,23 @@ A minimal end-to-end encrypted chat solution featuring a **Flutter** client and 
 
 ## 📸 Screenshots & Demo
 
-| Join Screen | Chat Room |
-|:---:|:---:|
-| <img src="path/to/join_screen.png" width="300" /> | <img src="path/to/chat_screen.png" width="300" /> |
+### 1. Getting Started
+| Splash Screen | Home Screen | Create Room |
+|:---:|:---:|:---:|
+| <img src="demo_resources/screenshots/splash.jpg" width="250" /> | <img src="demo_resources/screenshots/home_screen.jpg" width="250" /> | <img src="demo_resources/screenshots/create_room_dialogue.jpg" width="250" /> |
 
-[**▶️ Watch Demo Video**](https://drive.google.com/file/d/1ibOQbvVRtamzYza_u_9h8e8N4rbVGhiF/view?usp=drive_link)
+### 2. Join & Chat
+| Join Room | Chat Room | Conversation |
+|:---:|:---:|:---:|
+| <img src="demo_resources/screenshots/join_room_dialogue.jpg" width="250" /> | <img src="demo_resources/screenshots/chat_room_screen.jpg" width="250" /> | <img src="demo_resources/screenshots/users_chat.jpg" width="250" /> |
+
+### 3. Events & Details
+| User Joined | Room Details | User Left |
+|:---:|:---:|:---:|
+| <img src="demo_resources/screenshots/user_joined.jpg" width="250" /> | <img src="demo_resources/screenshots/current_users_in_room.jpg" width="250" /> | <img src="demo_resources/screenshots/user_left.jpg" width="250" /> |
+
+### 🎥 Video Demos
+[**▶️ Create Room Demo**](https://drive.google.com/file/d/1ibOQbvVRtamzYza_u_9h8e8N4rbVGhiF/view?usp=drive_link) • [**▶️ Join Room Demo**](https://drive.google.com/file/d/1iRwbM_6GNHsEcjgyeHy0LMWpj1Coq6ao/view?usp=drive_link)
 
 ---
 
