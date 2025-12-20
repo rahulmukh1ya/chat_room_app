@@ -166,84 +166,82 @@ class _ChatRoomScreenState extends State<ChatRoomScreen> {
         final currentUser = state.currentUser!;
         final messages = state.receivedMessages;
 
-        return SafeArea(
-          child: Scaffold(
-            appBar: AppBar(
-              backgroundColor: Colors.grey[200],
-              automaticallyImplyLeading: false,
-              centerTitle: true,
-              leading: Center(
-                child: InkWell(
-                  onTap: () {
-                    _showUsersDialog(context, state.users);
-                  },
-                  child: Badge(
-                    offset: Offset(10, -7),
-                    label: Text(state.users.length.toString()),
-                    child: Icon(Icons.groups_outlined),
-                  ),
+        return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.grey[200],
+            automaticallyImplyLeading: false,
+            centerTitle: true,
+            leading: Center(
+              child: InkWell(
+                onTap: () {
+                  _showUsersDialog(context, state.users);
+                },
+                child: Badge(
+                  offset: Offset(10, -7),
+                  label: Text(state.users.length.toString()),
+                  child: Icon(Icons.groups_outlined),
                 ),
               ),
-              title: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "${room.roomName} ( ${room.roomId} )",
-                    style: TextStyle(fontSize: 18, letterSpacing: 1.5),
-                  ),
-                  if (room.pin != '')
-                    Text(
-                      'PIN: ${room.pin}',
-                      style: TextStyle(
-                        fontSize: 14,
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                ],
-              ),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.logout),
-                  onPressed: () => _leaveRoom(context, state),
-                  tooltip: 'Leave Room',
-                ),
-              ],
             ),
-            body: Column(
+            title: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // Messages List
-                Expanded(
-                  child: messages.isEmpty
-                      ? Center(
-                          child: Text(
-                            'No messages yet.\nStart the conversation!',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        )
-                      : ListView.builder(
-                          controller: _scrollController,
-                          padding: EdgeInsets.all(16),
-                          itemCount: messages.length,
-                          itemBuilder: (context, index) {
-                            final message = messages[index];
-                            final isMe = message.userId == currentUser.userId;
-
-                            return ChatCard(isMe: isMe, message: message);
-                          },
-                        ),
+                Text(
+                  "${room.roomName} ( ${room.roomId} )",
+                  style: TextStyle(fontSize: 18, letterSpacing: 1.5),
                 ),
-
-                // Message Input
-                MessageInputBox(
-                  onSend: (value) {
-                    _sendMessage(context, state, value);
-                  },
-                ),
+                if (room.pin != '')
+                  Text(
+                    'PIN: ${room.pin}',
+                    style: TextStyle(
+                      fontSize: 14,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
               ],
             ),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.logout),
+                onPressed: () => _leaveRoom(context, state),
+                tooltip: 'Leave Room',
+              ),
+            ],
+          ),
+          body: Column(
+            children: [
+              // Messages List
+              Expanded(
+                child: messages.isEmpty
+                    ? Center(
+                        child: Text(
+                          'No messages yet.\nStart the conversation!',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      )
+                    : ListView.builder(
+                        controller: _scrollController,
+                        padding: EdgeInsets.all(16),
+                        itemCount: messages.length,
+                        itemBuilder: (context, index) {
+                          final message = messages[index];
+                          final isMe = message.userId == currentUser.userId;
+
+                          return ChatCard(isMe: isMe, message: message);
+                        },
+                      ),
+              ),
+
+              // Message Input
+              MessageInputBox(
+                onSend: (value) {
+                  _sendMessage(context, state, value);
+                },
+              ),
+            ],
           ),
         );
       },
