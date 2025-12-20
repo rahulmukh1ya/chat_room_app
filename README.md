@@ -79,7 +79,7 @@ The application uses **Symmetric Encryption** (AES-CBC) based on a shared secret
 ### 1. Backend Setup (Go)
 *Prerequisites: Go 1.25+, Pusher Account*
 
-1.  Navigate to the server directory.
+1.  Clone the [Backend Repository](https://github.com/rahulmukh1ya/chat_room_app_backend).
 2.  Create a `.env` file:
     ```env
     PUSHER_APP_ID=your_app_id
