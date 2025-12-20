@@ -19,7 +19,7 @@ A minimal end-to-end encrypted chat solution featuring a **Flutter** client and 
 |:---:|:---:|
 | <img src="path/to/join_screen.png" width="300" /> | <img src="path/to/chat_screen.png" width="300" /> |
 
-[**▶️ Watch Demo Video**](demo_resources\videos\room_create.mp4)
+[**▶️ Watch Demo Video**](https://drive.google.com/file/d/1ibOQbvVRtamzYza_u_9h8e8N4rbVGhiF/view?usp=drive_link)
 
 ---
 
